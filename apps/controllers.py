@@ -19,35 +19,34 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def main():
-    return render_template('main.html')
+	return render_template('main.html')
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+	return '.' in filename and \
+			filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 @app.route('/file', methods=['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+	if request.method == 'POST':
+		file = request.files['file']
+		if file and allowed_file(file.filename):
+			filename = secure_filename(file.filename)
 			return "여기"
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
-        else:
-        	return "허용된 파일 형식이 아닙니다~^^"
+			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			return redirect(url_for('uploaded_file', filename=filename))
+		else:
+			return "허용된 파일 형식이 아닙니다~^^"
 
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+	return '''
+	<!doctype html>
+	<title>Upload new File</title>
+	<h1>Upload new File</h1>
+	<form action="" method=post enctype=multipart/form-data>
+		<p><input type=file name=file>
+		<input type=submit value=Upload>
+	</form>
+	'''
 
 #
 # @error Handlers
@@ -55,12 +54,12 @@ def upload_file():
 # Handle 404 errors
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error/404.html'), 404
+	return render_template('error/404.html'), 404
 
 
 # Handle 500 errors
 @app.errorhandler(500)
 def server_error(e):
-    return render_template('error/500.html'), 500
+	return render_template('error/500.html'), 500
 
 
