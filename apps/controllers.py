@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request, redirect, url_for, flash, session, g, jsonify
+import os
+
+from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify
+
+from werkzeug import secure_filename
 
 from sqlalchemy import desc
 
@@ -8,11 +12,40 @@ from apps import app, db
 from apps.models import (User, Comment, Log, Group, Project)
 
 
+UPLOAD_FOLDER = '/upload_files'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 @app.route("/")
 def main():
     return "main"
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
+        else:
+        	return "허용된 파일 형식이 아닙니다~^^"
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form action="" method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+    '''
 
 #
 # @error Handlers
