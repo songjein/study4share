@@ -34,7 +34,7 @@ def upload_file():
 			filename = secure_filename(file.filename)
 			# 문제는 여기다.
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			return redirect(url_for('uploaded_file', filename=filename))
+			return "완료"
 		else:
 			return "허용된 파일 형식이 아닙니다~^^"
 
