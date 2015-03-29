@@ -30,9 +30,9 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
-       	return "여기"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+       		return "여기"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('uploaded_file',
                                     filename=filename))
