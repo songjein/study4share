@@ -12,7 +12,7 @@ from apps import app, db
 from apps.models import (User, Comment, Log, Group, Project)
 
 
-UPLOAD_FOLDER = 'upload_files/'
+UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
