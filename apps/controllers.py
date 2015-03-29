@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify
+from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify, send_from_directory
 
 from werkzeug import secure_filename
 
@@ -12,7 +12,7 @@ from apps import app, db
 from apps.models import (User, Comment, Log, Group, Project)
 
 
-UPLOAD_FOLDER = 'uploads/'
+UPLOAD_FOLDER = './uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -33,8 +33,8 @@ def upload_file():
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
 			# 문제는 여기다.
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			return "완료"
+			file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
+			return  "완료"
 		else:
 			return "허용된 파일 형식이 아닙니다~^^"
 
@@ -46,9 +46,15 @@ def upload_file():
 		<p><input type=file name=file>
 		<input type=submit value=Upload>
 	</form>
-	'''
+	
+	<hr><h3> uploaded files list</h3>
+	<p>%s</p>
+	''' % "<br>".join(os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])))
 
-#
+@app.route('/download/<filename>')
+def uploaded_file(filename):
+	return send_from_directory(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']), filename)
+
 # @error Handlers
 #
 # Handle 404 errors
