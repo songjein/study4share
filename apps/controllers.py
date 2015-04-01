@@ -21,6 +21,38 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def main():
 	return render_template('main.html')
 
+@app.route("/join")
+def join():
+	return "join"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# file upload and download module
+#########################################################################################
+
 def allowed_file(filename):
 	return '.' in filename and \
 			filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -54,6 +86,10 @@ def upload_file():
 @app.route('/download/<filename>')
 def uploaded_file(filename):
 	return send_from_directory(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']), filename)
+
+#########################################################################################
+
+
 
 # @error Handlers
 #
