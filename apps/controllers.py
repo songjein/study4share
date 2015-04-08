@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 from apps import app, db
 
-from apps.models import (User, Comment, Log, Group, Project)
+from apps.models import (User, Tag, Question, Answer)
 
 
 UPLOAD_FOLDER = './uploads/'
@@ -25,8 +25,10 @@ def main():
 def join():
 	return "join"
 
-
-
+@app.route('/make_question')
+def make_question():
+	return render_template('make_question.html')
+   
 
 
 

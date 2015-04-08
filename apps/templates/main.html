@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Study for share</title>
 	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-
+	
+	<style>
+		#title {
+			font-size:6em;	
+			color:black;
+		}
+		@media screen and (max-width:800px){
+			#title{font-size:4em;}
+		}
+		@media screen and (max-width:480px){
+			#title{font-size:3em;}
+		}
+	</style>
 </head>
 <body>
 	
@@ -14,13 +27,13 @@
 		
 
 		<center>
-			<a class="text-center" style="font-size:6em; color:black">Study4Share</a>
+			<a id="title" class="text-center">Study4Share</a>
 		</center>
 		<hr >
 
-		<a href="#"><span class="glyphicon glyphicon-pencil" style="font-size:7em;padding:2%;color:#5A5A5A"></span></a>
+		<a href="{{url_for('make_question')}}"><span class="glyphicon glyphicon-pencil" style="font-size:7em;padding:2%;color:#5A5A5A"></span></a>
 
-		<a href="#"><span class="glyphicon glyphicon-paperclip" style="font-size:7em;padding:2%;color:#FFE400"></span></a>
+		<a href="#"><span class="glyphicon glyphicon-folder-open" style="font-size:7em;padding:2%;color:#FFE400"></span></a>
 
 		<a href="#" class="text-muted" style="font-size:4em;padding:2%">OS</a>
 		<a href="#" class="text-primary" style="font-size:5em;padding:2%">자료구조</a>
