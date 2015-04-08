@@ -11,11 +11,13 @@
 			font-size:6em;	
 			color:black;
 		}
-		@media screen and (max-width:800px){
-			#title{font-size:4em;}
+		#wrapper {
+			font-size: 4em;
 		}
+
 		@media screen and (max-width:480px){
 			#title{font-size:3em;}
+			#wrapper{font-size:2em;}
 		}
 	</style>
 </head>
@@ -30,33 +32,34 @@
 			<a id="title" class="text-center">Study4Share</a>
 		</center>
 		<hr >
-
-		<a href="{{url_for('make_question')}}"><span class="glyphicon glyphicon-pencil" style="font-size:7em;padding:2%;color:#5A5A5A"></span></a>
-
-		<a href="#"><span class="glyphicon glyphicon-folder-open" style="font-size:7em;padding:2%;color:#FFE400"></span></a>
-
-		<a href="#" class="text-muted" style="font-size:4em;padding:2%">OS</a>
-		<a href="#" class="text-primary" style="font-size:5em;padding:2%">자료구조</a>
-		<a href="#" class="text-success" style="font-size:4em;padding:2%">네트워크</a>
-		<a href="#" class="text-info" style="font-size:5em;padding:2%">롤 모임</a>
-		<a href="#" class="text-warning" style="font-size:2em;padding:2%">C programming</a>
-		<a href="#" class="text-danger" style="font-size:5em;padding:2%">분산</a>
-
-		<a href="#" class="text-muted" style="font-size:4em;padding:2%">김수안</a>
-		<a href="#" class="text-primary" style="font-size:5em;padding:2%">김지윤</a>
-		<a href="#" class="text-success" style="font-size:4em;padding:2%">코코징</a>
-		<a href="#" class="text-info" style="font-size:5em;padding:2%">소리씨나에게와요</a>
-		<a href="#" class="text-warning" style="font-size:2em;padding:2%">cyblack</a>
-		<a href="#" class="text-danger" style="font-size:5em;padding:2%">신원식</a>
-
-		<a href="#" class="text-muted" style="font-size:4em;padding:2%">김원</a>
-		<a href="#" class="text-primary" style="font-size:5em;padding:2%">소설경</a>
-		<a href="#" class="text-success" style="font-size:4em;padding:2%">랄랄라</a>
-		<a href="#" class="text-info" style="font-size:5em;padding:2%">롤롤로</a>
-		<a href="#" class="text-warning" style="font-size:2em;padding:2%">릴릴릴</a>
-		<a href="#" class="text-danger" style="font-size:5em;padding:2%">렐렐레</a>
-
 		
+		<div id="wrapper">
+			<a href="{{url_for('make_question')}}"><span class="glyphicon glyphicon-pencil" style="font-size:7em;padding:2%;color:#5A5A5A"></span></a>
+
+			<a href="#"><span class="glyphicon glyphicon-folder-open" style="font-size:7em;padding:2%;color:#FFE400"></span></a>
+
+			<a href="#" class="text-muted" style="font-size:4em;padding:2%">OS</a>
+			<a href="#" class="text-primary" style="font-size:5em;padding:2%">자료구조</a>
+			<a href="#" class="text-success" style="font-size:4em;padding:2%">네트워크</a>
+			<a href="#" class="text-info" style="font-size:5em;padding:2%">롤 모임</a>
+			<a href="#" class="text-warning" style="font-size:2em;padding:2%">C programming</a>
+			<a href="#" class="text-danger" style="font-size:5em;padding:2%">분산</a>
+
+			<a href="#" class="text-muted" style="font-size:4em;padding:2%">김수안</a>
+			<a href="#" class="text-primary" style="font-size:5em;padding:2%">김지윤</a>
+			<a href="#" class="text-success" style="font-size:4em;padding:2%">코코징</a>
+			<a href="#" class="text-info" style="font-size:5em;padding:2%">소리씨나에게와요</a>
+			<a href="#" class="text-warning" style="font-size:2em;padding:2%">cyblack</a>
+			<a href="#" class="text-danger" style="font-size:5em;padding:2%">신원식</a>
+
+			<a href="#" class="text-muted" style="font-size:4em;padding:2%">김원</a>
+			<a href="#" class="text-primary" style="font-size:5em;padding:2%">소설경</a>
+			<a href="#" class="text-success" style="font-size:4em;padding:2%">랄랄라</a>
+			<a href="#" class="text-info" style="font-size:5em;padding:2%">롤롤로</a>
+			<a href="#" class="text-warning" style="font-size:2em;padding:2%">릴릴릴</a>
+			<a href="#" class="text-danger" style="font-size:5em;padding:2%">렐렐레</a>
+
+		</div>
 	</div>
 
 
