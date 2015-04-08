@@ -40,6 +40,18 @@
 	  });
 	  </script>
 
+
+	  <style>
+		#title {
+			font-size:6em;	
+			color:black;
+			text-decoration: none;
+		}
+		@media screen and (max-width:480px){
+			#title{font-size:3em; border-bottom: 1px solid gray;}
+		}
+	</style>
+		
 </head>
 <body>
 	
@@ -49,11 +61,11 @@
 		
 
 		<center>
-			<a class="text-center" style="font-size:6em; color:black">Study4Share</a>
+			<a id="title" class="text-center" style="font-size:6em; color:black">Study4Share</a>
 		</center>
 		<hr >
 		
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
 			<form role="form">
 			  <div class="form-group">
 			    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">Question</label>
@@ -101,7 +113,7 @@
 			  <input type="file" id="exampleInputFile">
 
 			  <br>
-			      <button type="submit" class="btn btn-info col-lg-12"><strong>질문을 등록합니다 ㅇ_ㅇ</strong></button>
+			      <button type="submit" class="btn btn-info col-lg-12 col-xs-12"><strong>질문을 등록합니다 ㅇ_ㅇ</strong></button>
 			      <br>
 			</form>
 			&nbsp;
