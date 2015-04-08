@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Study for share</title>
+	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+	
+	<style>
+		#title {
+			font-size:6em;	
+			color:black;
+			text-decoration: none;
+		}
+		@media screen and (max-width:480px){
+			#title{font-size:3em; border-bottom: 1px solid gray;}
+		}
+	</style>
+</head>
+<body>
+	
+
+
+	<div class="container">
+		
+
+		<center>
+			<a href="{{url_for('main')}}" id="title" class="text-center">Study4Share</a>
+		</center>
+		
+		<ul class="list-group">
+ 			<li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
+			<li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
+			<li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>
+			<li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+		</ul>
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
+			<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
+			<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
+			<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>

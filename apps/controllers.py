@@ -30,7 +30,9 @@ def make_question():
 	return render_template('make_question.html')
    
 
-
+@app.route('/question_list')
+def question_list():
+	return render_template('question_list.html')   
 
 
 
