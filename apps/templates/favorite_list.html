@@ -13,19 +13,27 @@
                 #title {
                         font-size:6em;
                         color:black;
+                        text-decoration: none;
+                        
 			/*text-shadow : left top blur color*/	
 			text-shadow: 3px 3px 20px #000;
   			-o-text-shadow: 3px 3px 20px #000;
   			-moz-text-shadow: 3px 3px 20px #000;
   			-webkit-text-shadow: 3px 3px 20px #000;
 			filter:dropshadow(color=#000000, offX=1, offY=1);zoom:1;
+
                         padding: 0% 3%;
                         font-family: 'Indie Flower', cursive;
                         /*font-family: 'Shadows Into Light', cursive;*/
                 }
 
+		#wrapper {
+			font-size:4em;
+			padding: 2% 5%;
+		}
 		@media screen and (max-width:480px){
-			#title{font-size:3em; }
+			#title{font-size:3em;}
+			#wrapper{font-size:2em;}
 		}
 	</style>
 </head>
@@ -41,21 +49,18 @@
 			</center>
 		</div>
 
+
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><strong><span style="color">#</span>C programming</strong></h3>
+		    <h3 class="panel-title"><strong>Favorite tags ~&nbsp;<span class="glyphicon glyphicon-tags"></span></h3>
 		  </div>
-		  <div class="panel-body">
-		    <div class="list-group">
-				<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in<span class="label label-danger">new</span></a>
-				<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero<span class="label label-danger">new</span></a>
-				<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-				<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-				<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-				<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-				<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-				<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-			</div>
+		  <div id="wrapper"  class="panel-body">
+			<a href="{{url_for('question_list')}}" class="text-muted" >,김수안</a>
+			<a href="{{url_for('question_list')}}" class="text-primary" >,김지윤</a>
+			<a href="{{url_for('question_list')}}" class="text-success" >,코코징</a>
+			<a href="{{url_for('question_list')}}" class="text-info" >,소리씨나에게와요</a>
+			<a href="{{url_for('question_list')}}" class="text-warning" >,cyblack</a>
+			<a href="{{url_for('question_list')}}" class="text-danger" >,신원식</a>
 		  </div>
 		</div>
 		

@@ -35,7 +35,9 @@ def question_list():
 	return render_template('question_list.html')   
 
 
-
+@app.route('/favorite_list')
+def favorite_list():
+	return render_template('favorite_list.html')
 
 
 

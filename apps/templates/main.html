@@ -5,12 +5,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Study for share</title>
 	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>	
+	
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
 	
 	<style>
+		body{margin-top:3%;}
+		
 		#title {
 			font-size:6em;	
 			color:black;
 			text-decoration: none;
+			
+			/*text-shadow : left top blur color*/	
+			text-shadow: 3px 3px 20px #000;
+  			-o-text-shadow: 3px 3px 20px #000;
+  			-moz-text-shadow: 3px 3px 20px #000;
+  			-webkit-text-shadow: 3px 3px 20px #000;
+			filter:dropshadow(color=#000000, offX=1, offY=1);zoom:1;
+
+			padding: 0% 3%;
+			font-family: 'Indie Flower', cursive;
+			/*font-family: 'Shadows Into Light', cursive;*/
 		}
 		#wrapper {
 			font-size: 4em;
@@ -21,7 +39,7 @@
 
 		}
 		@media screen and (max-width:480px){
-			#title{font-size:3em; border-bottom: 1px solid gray;}
+			#title{font-size:3em; }
 			#wrapper{font-size:2em;}
 			#wrapper .menu_icon {font-size:2.1em;}
 		}
@@ -33,16 +51,14 @@
 
 	<div class="container">
 		
-
 		<center>
-			<a id="title" class="text-center">Study4Share</a>
+			<a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:#FFBB00">4</span>Share</a>
 		</center>
-		
 		
 		<div id="wrapper">
 			<a href="{{url_for('make_question')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#5A5A5A"></span></a>
 
-			<a href="#"><span class="menu_icon glyphicon glyphicon-folder-open" style="color:#FFE400"></span></a>
+			<a href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-folder-open" style="color:#FFE400"></span></a>
 
 			<a href="{{url_for('question_list')}}" class="text-muted" >,OS</a>
 			<a href="{{url_for('question_list')}}" class="text-primary" >,자료구조</a>
