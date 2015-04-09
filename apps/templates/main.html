@@ -8,9 +8,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>	
 	
-	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>
 	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
-	
+	<script src="{{url_for('static', filename='jquery.ui.touch-punch.min.js')}}"></script>
+
 	<style>
 		body{margin-top:3%;}
 		
@@ -44,6 +45,7 @@
 			#wrapper .menu_icon {font-size:2.1em;}
 		}
 	</style>
+
 </head>
 <body>
 	
@@ -58,33 +60,42 @@
 		<div id="wrapper">
 			<a href="{{url_for('make_question')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#5A5A5A"></span></a>
 
-			<a href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-folder-open" style="color:#FFE400"></span></a>
+			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-folder-open" style="color:#FFE400"></span></a>
 
-			<a href="{{url_for('question_list')}}" class="text-muted" >,OS</a>
-			<a href="{{url_for('question_list')}}" class="text-primary" >,자료구조</a>
-			<a href="{{url_for('question_list')}}" class="text-success" >,네트워크</a>
-			<a href="{{url_for('question_list')}}" class="text-info" >,롤 모임</a>
-			<a href="{{url_for('question_list')}}" class="text-warning" >,C programming</a>
-			<a href="{{url_for('question_list')}}" class="text-danger" >,분산</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,OS</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,자료구조</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,네트워크</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,롤 모임</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,C programming</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,분산</a>
 
-			<a href="{{url_for('question_list')}}" class="text-muted" >,김수안</a>
-			<a href="{{url_for('question_list')}}" class="text-primary" >,김지윤</a>
-			<a href="{{url_for('question_list')}}" class="text-success" >,코코징</a>
-			<a href="{{url_for('question_list')}}" class="text-info" >,소리씨나에게와요</a>
-			<a href="{{url_for('question_list')}}" class="text-warning" >,cyblack</a>
-			<a href="{{url_for('question_list')}}" class="text-danger" >,신원식</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,김수안</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,김지윤</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,코코징</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,소리씨나에게와요</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,cyblack</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,신원식</a>
 
-			<a href="{{url_for('question_list')}}" class="text-muted" >,김원</a>
-			<a href="{{url_for('question_list')}}" class="text-primary" >,소설경</a>
-			<a href="{{url_for('question_list')}}" class="text-success" >,랄랄라</a>
-			<a href="{{url_for('question_list')}}" class="text-info" >,롤롤로</a>
-			<a href="{{url_for('question_list')}}" class="text-warning" >,릴릴릴</a>
-			<a href="{{url_for('question_list')}}" class="text-danger" >,렐렐레</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,김원</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,소설경</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,랄랄라</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,롤롤로</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,릴릴릴</a>
+			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,렐렐레</a>
 
 		</div>
 	</div>
 
-
+	<script>
+		$(function() {
+		  $( ".tag" ).draggable();
+		  $( "#favorite_menu" ).droppable({
+		    drop: function( event, ui ) {
+		    	alert('jein');
+		    }
+		  });
+		});
+	</script>
 
 
 </body>
