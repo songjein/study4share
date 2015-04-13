@@ -21,9 +21,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def main():
 	return render_template('main.html')
 
-@app.route("/join")
-def join():
-	return "join"
 
 @app.route('/make_question')
 def make_question():
@@ -40,12 +37,21 @@ def favorite_list():
 	return render_template('favorite_list.html')
 
 
+# write questions
 
 
-
-
-
-
+# user join
+@app.route('/join/<id>/<pw>/<name>')
+def join(id, pw, name):
+	user = User(
+		id=id,
+		pw=pw,
+		name=name
+	)
+	db.session.add(user)
+	db.session.commit()
+	
+	return str(User.query.all())
 
 
 

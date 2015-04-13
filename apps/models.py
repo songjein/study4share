@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+#-*- encoding: utf-8 -*-
 """
 models.py
 
@@ -53,7 +53,7 @@ class Answer(db.Model):
         primaryjoin="Answer.user_id==User.id",
         backref=db.backref('answers', cascade='all, delete-orphan', lazy='dynamic'))
 
-    content = db.Column(db.Text())
+    content = db.Column(db.Text(), default="")
 
 
 
@@ -61,13 +61,13 @@ class Answer(db.Model):
 class User(db.Model):
 
     id = db.Column(db.String(255), primary_key=True) # 중복 확인 
-    name = db.Column(db.String(64))
+    pw = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     fkey = db.Column(db.String(255), default="") # file name (picture)
     date_joined = db.Column(db.DateTime, default=db.func.now())
     
     # 즐겨찾기 태그 리스트
-    favlist = db.Column(db.Text())
-
+    favlist = db.Column(db.Text(), default="")
     def __repr__(self):
         return '<User %r>' % (self.name)
 

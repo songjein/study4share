@@ -9,9 +9,9 @@
 	<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>	
 	
 	<script src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>
-	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
-	<script src="{{url_for('static', filename='jquery.ui.touch-punch.min.js')}}"></script>
-
+	<script src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
+	<script src="{{url_for('static', filename='js/jquery.ui.touch-punch.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 	<style>
 		body{margin-top:3%;}
 		
@@ -34,11 +34,13 @@
 		#wrapper {
 			font-size: 4em;
 			padding: 2% 5%;
+			text-align:justify;
 		}
 		#wrapper .menu_icon{
 			font-size:2em;
 
 		}
+		#wrapper a{white-space : nowrap;}
 		@media screen and (max-width:480px){
 			#title{font-size:3em; }
 			#wrapper{font-size:2em;}
@@ -60,40 +62,72 @@
 		<div id="wrapper">
 			<a href="{{url_for('make_question')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#5A5A5A"></span></a>
 
-			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-folder-open" style="color:#FFE400"></span></a>
+			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span></a>
 
-			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,OS</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,자료구조</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,네트워크</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,롤 모임</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,C programming</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,분산</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-muted" >OS</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-primary" >자료구조</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-success" >네트워크</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-info" >롤 모임</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-warning" >C programming</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-danger" >분산</a>
 
-			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,김수안</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,김지윤</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,코코징</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,소리씨나에게와요</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,cyblack</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,신원식</a>
-
-			<a class="tag" href="{{url_for('question_list')}}" class="text-muted" >,김원</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-primary" >,소설경</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-success" >,랄랄라</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-info" >,롤롤로</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-warning" >,릴릴릴</a>
-			<a class="tag" href="{{url_for('question_list')}}" class="text-danger" >,렐렐레</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-muted" >김수안</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-primary" >김지윤</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-success" >코코징</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-info" >소리씨나에게와요</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-warning" >cyblack</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-danger" >신원식</a>
+		
+			<a href="{{url_for('question_list')}}" class="tagd text-muted" >김원</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-primary" >소설경</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-success" >랄랄라</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-info" >롤롤로</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-warning" >릴릴릴</a>
+			<a href="{{url_for('question_list')}}" class="tagd text-danger" >렐렐레</a>
 
 		</div>
 	</div>
 
+<!--Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>즐겨찾기 추가</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">추가</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
 	<script>
 		$(function() {
-		  $( ".tag" ).draggable();
-		  $( "#favorite_menu" ).droppable({
-		    drop: function( event, ui ) {
-		    	alert('jein');
-		    }
-		  });
+			$( ".tagd" ).draggable({revert:true, helper:"clone"});
+			$( "#favorite_menu" ).droppable({
+				drop: function( event, ui ) {
+
+		  		}, activate: function(event, ui){
+					$('#favorite_menu span').css('color', '#ED4C00');
+
+				}, deactivate: function(event, ui){
+					$('#favorite_menu span').css('color', '#FFE400');
+
+				}, over: function(event, ui){
+					content = ui.draggable.text()
+					$('.modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + content + '</span>' + "을 즐겨찾기에 추가!</h1></center>");
+					$('#myModal').modal();
+
+				}, out: function(event, ui){
+					$('#favorite_menu span').css('color', '#ED4C00');
+				}
+			});
 		});
 	</script>
 
