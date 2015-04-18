@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify, send_from_directory
+from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify, send_from_directory,Markup
 
 from werkzeug import secure_filename
+from werkzeug.exceptions import default_exceptions
 
 from sqlalchemy import desc
 
@@ -18,9 +19,12 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
-def main():
-	return render_template('main.html')
+def index():
+	return render_template('login.html')
 
+@app.route("/main")
+def main():
+	return render_template('ma2222in.html')
 
 @app.route('/make_question')
 def make_question():
@@ -52,10 +56,6 @@ def join(id, pw, name):
 	db.session.commit()
 	
 	return str(User.query.all())
-
-
-
-
 
 
 
@@ -103,17 +103,17 @@ def uploaded_file(filename):
 
 
 
-# @error Handlers
-#
-# Handle 404 errors
-@app.errorhandler(404)
-def page_not_found(e):
-	return render_template('error/404.html'), 404
+# Error logging module
+#########################################################################################
+'''def show_errormessage(error):
+     desc = error.get_description(flask.request.environ)
+     return render_template('error.html',
+        code=error.code,
+        name=error.name,
+        description=Markup(desc)
+    ), error.code
 
-
-# Handle 500 errors
-@app.errorhandler(500)
-def server_error(e):
-	return render_template('error/500.html'), 500
-
-
+for _exc in default_exceptions:
+    app.error_handlers[_exc] = show_errormessage
+del _exc'''
+#########################################################################################
