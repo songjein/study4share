@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>Parallax Login Form [RELOAD] - Bootsnipp.com</title>
+    <title>Study4Share</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -105,23 +105,32 @@
                     <div class="panel-heading" >                                
                         <div class="row-fluid user-row">
                             <center>
-                                    <a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:red">4</span>Share</a>
+                                    <a href="#" id="title" class="text-center">Study<span style="color:red">4</span>Share</a>
                             </center>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form accept-charset="UTF-8" role="form" class="form-signin">
+			
+			{% for message in get_flashed_messages() %}
+				<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{message}}
+				</div>
+			{% endfor %}
+                        
+			<form action="{{url_for('login')}}" method="POST" accept-charset="UTF-8" role="form" class="form-signin">
                             <fieldset>
+				<!--
                                 <label class="panel-login">
                                     <div class="login_result"></div>
                                 </label>
-                                <input class="form-control" placeholder="아이디를적어주십시올" id="username" type="text">
-                                <input class="form-control" placeholder="롸잇츄어비밀버노" id="password" type="password">
+				-->
+				{{loginform.id(class="form-control", placeholder="아이디를적어주십시올", id="userid")}}
+				{{loginform.password(class="form-control", placeholder="롸잇츄어비밀버노", id="password")}}
                                 <hr>
-                                <!--lrBtn means login and register button-->
                             </fieldset>
+                            <button id="lrBtn" class="btn btn-lg btn-success btn-block" type="submit"  >로그인 / 가입</button>
                         </form>
-                        <button id="lrBtn" class="btn btn-lg btn-success btn-block" id="login" >로그인 / 가입</button>
                     </div>
                 </div>
             </div>
@@ -137,26 +146,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel"><strong>회원 가입 해주시죠</strong></h4>
       </div>
-      <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">아뒤</label>
-                <div class="col-sm-8">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="아이디 적어윰">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">비번</label>
-                <div class="col-sm-8">
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="비번은 심플하게 4자리!">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">&nbsp;</label>
-                <div class="col-sm-8">
-                  <input type="password" class="form-control" id="inputPassword4" placeholder="다시 한번 쳐줘요ㅎ">
-                </div>
-              </div>
+      <div class="modal-body">	
+	{% from "_form_field_register.html" import render_field %}
+            <form action="{{url_for('join')}}" class="form-horizontal" method="POST">
+		{{ joinform.hidden_tag() }}
+		{{render_field(joinform.id, class='form-control', placeholder='아이디 적어융')}}
+		{{render_field(joinform.password, class='form-control', placeholder='비번은 심플하게 4자리!')}}
+		{{render_field(joinform.confirm, class='form-control', placeholder='다시 한번 쳐줘요ㅎ')}}
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
                   <button type="submit" class="btn btn-success col-sm-12">가입하기 ^__^</button>
@@ -174,9 +170,18 @@
 
 <script>
     $(function(){
-        $('#lrBtn').click(function(){
-            $('#myModal').modal()
+	$("#lrBtn").click(function(){
+		if ($("#userid").val().length == 0 ||  $('#password').val().length == 0){
+        		$('#myModal').modal()
+			return false;
+		} else {
+			return true;
+		}
         })
+
+	{% if modal_open == True %}
+		$('#myModal').modal()
+	{% endif %}
     })    
 </script>
 

@@ -1,0 +1,16 @@
+<!--반드시 field엔 class="form-control", placeholder=""  을 전달해줘야한다.-->
+{% macro render_field(field) %}
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+        <label for="" class="col-sm-2 control-label">{{ field.label }}</label>
+        <div class="col-sm-8">
+		{{ field(**kwargs)|safe }}
+	</div>
+        {% if field.errors %}
+            <div class="col-sm-8 col-sm-offset-2 help-block">
+                {% for error in field.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

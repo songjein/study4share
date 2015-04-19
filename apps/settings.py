@@ -9,7 +9,7 @@ from datetime import timedelta
 
 class Config:
     # Set secret key to use session
-    SECRET_KEY = "likelion-flaskr-secret-key"
+    SECRET_KEY = "je22.zlciei1234j.,mcxv13390lk;jafmwerkqwj;adkfj;asdlfweqmklasdfjka;lfmqeiwkr;qwejir;324;kelvmkcmv;difq"
     debug = False
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=15)
 
@@ -23,3 +23,6 @@ class Production(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql://root:111111@localhost/study'
     
     migration_directory = 'migrations'
+    UPLOAD_FOLDER = './uploads/'
+ 
+
