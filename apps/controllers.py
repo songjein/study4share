@@ -12,7 +12,7 @@ from sqlalchemy import desc
 from apps import app, db
 
 from apps.models import (User, Tag, Problem, Solution)
-from apps.forms import (JoinForm, LoginForm)
+from apps.forms import (JoinForm, LoginForm, ProblemForm)
 
 from flask.ext.login import login_required, login_user, logout_user, current_user
 from apps import login_manager
@@ -96,14 +96,15 @@ def join():
 def main():
 	return render_template('main.html')
 
-@app.route('/make_question')
-def make_question():
-	return render_template('make_question.html')
+@app.route('/make_problem')
+def make_problem():
+	form = ProblemForm()
+	return render_template('make_problem.html', form=form)
    
 
-@app.route('/question_list')
-def question_list():
-	return render_template('question_list.html')   
+@app.route('/problem_list')
+def problem_list():
+	return render_template('problem_list.html')   
 
 
 @app.route('/favorite_list')

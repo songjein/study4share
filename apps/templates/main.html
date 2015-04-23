@@ -38,7 +38,6 @@
 		}
 		#wrapper .menu_icon{
 			font-size:2em;
-
 		}
 		#wrapper a{white-space : nowrap;}
 		@media screen and (max-width:480px){
@@ -60,31 +59,33 @@
 		</center>
 		
 		<div id="wrapper">
-			<a href="{{url_for('make_question')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#541300"></span></a>
+			<a href="{{url_for('make_problem')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#541300"></span></a>
+			<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFBB00"></span></a>
+			<a id="help_me" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
+			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF612"></span></a>
 
-			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span></a>
 
-			<a href="{{url_for('question_list')}}" class="tagd text-muted" >OS</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-primary" >자료구조</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-success" >네트워크</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-info" >롤 모임</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-warning" >C programming</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-danger" >분산</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >OS</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >자료구조</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-success" >네트워크</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-info" >롤 모임</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >C programming</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >분산</a>
 
-			<a href="{{url_for('question_list')}}" class="tagd text-muted" >김수안</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-primary" >김지윤</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-success" >코코징</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-info" >소리씨나에게와요</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-warning" >cyblack</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-danger" >신원식</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >김수안</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >김지윤</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-success" >코코징</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-info" >소리씨나에게와요</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >cyblack</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >신원식</a>
 		
-			<a href="{{url_for('question_list')}}" class="tagd text-muted" >김원</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-primary" >소설경</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-success" >랄랄라</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-info" >롤롤로</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-warning" >릴릴릴</a>
-			<a href="{{url_for('question_list')}}" class="tagd text-danger" >렐렐레</a>
-
+			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >김원</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >소설경</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-success" >랄랄라</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-info" >롤롤로</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >릴릴릴</a>
+			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >렐렐레</a>
+			<br>
 		</div>
 	</div>
 
@@ -114,10 +115,10 @@
 				drop: function( event, ui ) {
 
 		  		}, activate: function(event, ui){
-					$('#favorite_menu span').css('color', '#ED4C00');
+					$('#favorite_menu span').css('color', '#FF5E00');
 
 				}, deactivate: function(event, ui){
-					$('#favorite_menu span').css('color', '#FFE400');
+					$('#favorite_menu span').css('color', '#FFF612');
 
 				}, over: function(event, ui){
 					content = ui.draggable.text()
@@ -125,7 +126,7 @@
 					$('#myModal').modal();
 
 				}, out: function(event, ui){
-					$('#favorite_menu span').css('color', '#ED4C00');
+					$('#favorite_menu span').css('color', '#FF5E00');
 				}
 			});
 		});

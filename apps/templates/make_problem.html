@@ -84,29 +84,26 @@
 			</center>
 		</div>
 		<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<!--플래시 메시지 띄워주기 여기에
+
+			ㅂㄷㄱㅂㄷㄱ ㅂㄷ
+ㄱㅂㄷㅈㄱ ㅂㄷㅈㄱ ㅂ
+ㄷㅈㄱ ㅂㄷㅈ ㄱㅂ
+ㄷㄱㅂㄱ
+-->
 			<form role="form">
 			  <div class="form-group">
-			    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">Question</label>
-			      <input style="border-color:skyblue;" type="text" class="form-control" id="quest"  placeholder="질문의 요지">
-			  </div>
+			    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{form.title.label}}</label>
+			     	{{form.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="문제가 뭐요?")}}
+				<!-- <input style="border-color:skyblue;" type="text" class="form-control" id="quest"  placeholder="문제가 뭐요?">
+-->			  </div>
+			  {{form.content(id="summernote")}}
+			  <!--<textarea id="summernote" name="content" ></textarea>-->
 
-			  <textarea id="summernote" name="content" ></textarea>
-
-
-			  <!-- <div class="form-group">
-			    <label for="exampleInputFile">File input</label>
-			    <input type="file" id="exampleInputFile">
-			    <p class="help-block">Example block-level help text here.</p>
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputFile">File input</label>
-			    <input type="file" id="exampleInputFile">
-			    <p class="help-block">Example block-level help text here.</p>
-			  </div> -->
 			  <br>
-			  <span style="color:skyblue; font-weight:bold; font-size:3em;"> Tag list</span>
+			  <span style="color:skyblue; font-weight:bold; font-size:3em;">{{form.tag.label}}</span>
 			  <span style="color:gray">질문을 위한 태그를 선택해 주세요</span>
-
+			  {{form.tag()}}
 			  <div style="background-color:#EAEAEA">
 				
 				<a href="#" class="text-muted" style="font-size:1.5em;padding:1%">OS</a>
@@ -120,18 +117,20 @@
 			  </div>
 
 			  <br>
-			  <span style="color:#9FC93C; font-weight:bold; font-size:3em;"> New tag</span>
+			  <span style="color:#9FC93C; font-weight:bold; font-size:3em;">{{form.newtag.label}}</span>
 			  <span style="color:gray">마음에 드는 태그가 없다면 새로 만들어 주세요</span>
-			  <input style="border-color:#9FC93C;" type="text" class="form-control" id="quest"  placeholder="새로운 태그명">
-				
+			  {{form.newtag(style='border-color:#9FC93C;', class="form-control", id="quest", placeholder="새로운 태그명")}}
+			  <!--<input style="border-color:#9FC93C;" type="text" class="form-control" id="quest"  placeholder="새로운 태그명">
+			-->	
 
 			  <br>
-			  <span style="color:#FFB2F5; font-weight:bold; font-size:3em;"> Add file</span>
+			  <span style="color:#FFB2F5; font-weight:bold; font-size:3em;"> {{form.file.label}}</span>
 			  <span style="color:gray">업로드 취소 방법은; 파일 선택 클릭후 취소 클릭입니다</span>
-			  <input type="file" id="exampleInputFile">
+		  	  {{form.file()}}
+		  	  <!--<input type="file" id="exampleInputFile">-->
 
 			  <br>
-			      <button type="submit" class="btn btn-info col-lg-12 col-xs-12"><strong>질문을 등록합니다 ㅇ_ㅇ</strong></button>
+			      <button type="submit" class="btn btn-info col-lg-12 col-xs-12"><strong>문제를 등록합니다 =_-</strong></button>
 			      <br>
 			</form>
 			&nbsp;
