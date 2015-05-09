@@ -1,108 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Study for share</title>
-	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
-	
-	<script src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>
-	<script src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
-	<script src="{{url_for('static', filename='js/jquery.ui.touch-punch.min.js')}}"></script>
-	<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-	<style>
-		body{margin-top:3%;}
-		
-		#title {
-			font-size:6em;	
-			color:black;
-			text-decoration: none;
-			
-			/*text-shadow : left top blur color*/	
-			text-shadow: 3px 3px 20px yellow;
-  			-o-text-shadow: 3px 3px 20px yellow;
-  			-moz-text-shadow: 3px 3px 20px yellow;
-  			-webkit-text-shadow: 3px 3px 20px yellow;
-			filter:dropshadow(color=yellow, offX=1, offY=1);zoom:1;
+{% extends "base.html" %}
+{% block content %}
 
-			padding: 0% 3%;
-			font-family: 'Rock Salt', cursive;
-			/*font-family: 'Shadows Into Light', cursive;*/
-		}
+	<style>
 		#wrapper {
-			font-size: 4em;
-			padding: 2% 5%;
-			text-align:justify;
+			text-align:justify; /* for main.html */
 		}
 		#wrapper .menu_icon{
 			font-size:2em;
 		}
-		#wrapper a{white-space : nowrap;}
+		#wrapper a{white-space : nowrap; /* for main.html */}
 		@media screen and (max-width:480px){
-			#title{font-size:2.5em; }
-			#wrapper{font-size:2em;}
-			#wrapper .menu_icon {font-size:2.1em;}
+			#wrapper .menu_icon {font-size:2.1em;} /*for main.html*/
+		}
+		
+		a[class*="tagd"]:hover{
+			background:#FFF612;
 		}
 	</style>
 
-</head>
-<body>
-	
 
+<div id="wrapper">
+	<a id="make_prob" href="#"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#541300"></span></a>
+	<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFBB00"></span></a>
+	<a id="help_me" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
+	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF612"></span></a>
+		{% for tag in tags %}
+			{% if loop.index0%7 == 0 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[0]}}" >{{tag.id}}</a>
 
-	<div class="container">
-		
-		<center>
-			<a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:#FFBB00">4</span>Share</a>
-		</center>
-		
-		<div id="wrapper">
-			<a href="{{url_for('make_problem')}}"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#541300"></span></a>
-			<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFBB00"></span></a>
-			<a id="help_me" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
-			<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF612"></span></a>
+			{% elif loop.index0%7 == 1 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[1]}}" >{{tag.id}}</a>
 
+			{% elif loop.index0%7 == 2 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[2]}}" >{{tag.id}}</a>
 
-			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >OS</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >자료구조</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-success" >네트워크</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-info" >롤 모임</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >C programming</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >분산</a>
+			{% elif loop.index0%7 == 3 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[3]}}" >{{tag.id}}</a>
 
-			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >김수안</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >김지윤</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-success" >코코징</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-info" >소리씨나에게와요</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >cyblack</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >신원식</a>
-		
-			<a href="{{url_for('problem_list')}}" class="tagd text-muted" >김원</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-primary" >소설경</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-success" >랄랄라</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-info" >롤롤로</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-warning" >릴릴릴</a>
-			<a href="{{url_for('problem_list')}}" class="tagd text-danger" >렐렐레</a>
-			<br>
-		</div>
-	</div>
+			{% elif loop.index0%7 == 4 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[4]}}" >{{tag.id}}</a>
+
+			{% elif loop.index0%7 == 5 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[5]}}" >{{tag.id}}</a>
+
+			{% elif loop.index0%7 == 6 %}
+				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[6]}}" >{{tag.id}}</a>
+
+			{% endif %}	
+	{% endfor %}
+	<br>
+</div>
+
+<script>
+
+$(function(){
+	{% if mpmodal_open %}
+		$('#mpModal').modal()
+	{% endif %}
+	$('#make_prob').click(function(){
+		$('#mpModal').modal()
+	})
+})
+
+</script>
 
 <!--Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="mpModal" tabindex="-1" role="dialog" aria-labelledby="mpModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-success">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>즐겨찾기 추가</h4>
+        <h4 class="modal-title" id="mpModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>글쓰기</h4>
       </div>
       <div class="modal-body">
-        
+	{% for message in get_flashed_messages() %}
+		<div class="col-md-12  alert alert-info">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{message}}
+		</div>
+	{% endfor %}
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+	{% include "make_problem.html" %}
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+      <br> 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">추가</button>
+      <div class="modal-footer bg-success">
+		&nbsp;
       </div>
     </div>
   </div>
@@ -122,8 +105,8 @@
 
 				}, over: function(event, ui){
 					content = ui.draggable.text()
-					$('.modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + content + '</span>' + "을 즐겨찾기에 추가!</h1></center>");
-					$('#myModal').modal();
+					$('#fvModal .modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + content + '</span>' + "을 즐겨찾기에 추가!</h1></center>");
+					$('#fvModal').modal();
 
 				}, out: function(event, ui){
 					$('#favorite_menu span').css('color', '#FF5E00');
@@ -133,5 +116,22 @@
 	</script>
 
 
-</body>
-</html>
+<!--Modal -->
+<div class="modal fade" id="fvModal" tabindex="-1" role="dialog" aria-labelledby="fvModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="fvModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>즐겨찾기 추가</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer bg-info">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">추가</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

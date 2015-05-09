@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-import os
+import os, random
 
 from flask import send_from_directory, render_template, request, redirect, url_for, flash, session, g, jsonify, send_from_directory,Markup
+
+import json
 
 from werkzeug import secure_filename
 from werkzeug.exceptions import default_exceptions
@@ -12,7 +14,9 @@ from sqlalchemy import desc
 from apps import app, db
 
 from apps.models import (User, Tag, Problem, Solution)
-from apps.forms import (JoinForm, LoginForm, ProblemForm)
+from apps.models import UserMirror
+
+from apps.forms import (JoinForm, LoginForm, ProblemForm, SolutionForm)
 
 from flask.ext.login import login_required, login_user, logout_user, current_user
 from apps import login_manager
@@ -24,8 +28,15 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 @app.route("/")
 def index():
-	return redirect(url_for('login'))
-
+@app.route("/main")
+@login_required
+def main():
+	tags = Tag.query.all()
+	form = ProblemForm()
+	textcolor = ['muted', 'primary', 'success', 'info', 'warning', 'danger']
+	random.shuffle(tags)
+	random.shuffle(textcolor) 
+	return render_template('main.html', tags=tags, form=form, textcolor=textcolor)
 
 # login & join  function
 ##############################################################################################################
@@ -92,33 +103,169 @@ def join():
 
 ##############################################################################################################
 
-@app.route("/main")
-def main():
-	return render_template('main.html')
 
-@app.route('/make_problem')
+
+# menu functions (make_problem - pencil icon, favorite_list - start icon
+##############################################################################################################
+@app.route('/make_problem', methods=["GET", "POST"])
+@login_required
 def make_problem():
+	
+	tags = Tag.query.all()
+	textcolor = ['muted', 'primary', 'success', 'info', 'warning', 'danger']
+	random.shuffle(tags)
+	random.shuffle(textcolor) 
 	form = ProblemForm()
-	return render_template('make_problem.html', form=form)
+
+	if form.validate_on_submit():
+		tag =  Tag.query.get(form.tag.data)
+		if tag is None:
+			tag = Tag(id=form.tag.data.strip())
+			db.session.add(tag)
+			db.session.commit()
+		
+		user = User.query.get(g.user.id)
+		
+		problem = Problem(
+			title = form.title.data.strip(), 
+			content = form.content.data,
+			user_id = g.user.id,
+			user = user,
+			tag_id = tag.id,
+			tag = tag
+		)
+		db.session.add(problem)
+
+		solution = Solution(
+			prob_id = problem.id,
+			problem = problem,
+			content = u"답을 입력해 주세요^^"
+		)
+		db.session.add(solution)
+		db.session.commit()	
+		return redirect(url_for('main'))
+
+	elif request.method == "POST" :	
+		# form에 설정했던게 안먹혀서 예외처리함
+		if form.content.data == "<p><br></p>":
+			form.content.errors.append(u"내용을 입력해주세요~")	
+		errors = []
+		errors += form.title.errors +  form.content.errors + form.tag.errors + form.newtag.errors
+		for e in errors:
+			flash(e)
+		return render_template('main.html', form=form, tags=tags, mpmodal_open=True, textcolor=textcolor)
+	
+	return render_template('main.html', form=form, tags=tags, mpmodal_open=False, textcolor=textcolor)
    
 
-@app.route('/problem_list')
-def problem_list():
-	return render_template('problem_list.html')   
+@app.route('/make_problem_in_listpage/<tag_id>', methods=["GET", "POST"])
+@login_required
+def make_problem_in_listpage(tag_id):
+	probForm = ProblemForm()
+	solForm = SolutionForm()
+
+	tag = Tag.query.get(tag_id)
+	problems = tag.problems
+	
+
+	if probForm.validate_on_submit():
+		tag =  Tag.query.get(probForm.tag.data)
+		if tag is None:
+			tag = Tag(id=probForm.tag.data.strip())
+			db.session.add(tag)
+			db.session.commit()
+		
+		user = User.query.get(g.user.id)
+		
+		problem = Problem(
+			title = probForm.title.data.strip(), 
+			content = probForm.content.data,
+			user_id = g.user.id,
+			user = user,
+			tag_id = tag.id,
+			tag = tag
+		)
+		db.session.add(problem)
+
+		solution = Solution(
+			prob_id = problem.id,
+			problem = problem,
+			content = u""
+		)
+		db.session.add(solution)
+		db.session.commit()	
+		return redirect(url_for('problem_list', tag_id=tag_id))
+	# form error일 경우
+	elif request.method == "POST" :	
+		# form에 설정했던게 안먹혀서 예외처리함
+		if probForm.content.data == "<p><br></p>":
+			probForm.content.errors.append(u"내용을 입력해주세요~")	
+		errors = []
+		errors += probForm.title.errors +  probForm.content.errors + probForm.tag.errors + probForm.newtag.errors
+		for e in errors:
+			flash(e)
+		return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True)   
+	
+	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
+   
 
 
 @app.route('/favorite_list')
+@login_required
 def favorite_list():
 	return render_template('favorite_list.html')
 
+##############################################################################################################
 
-# write questions
+@app.route('/problem_list/<tag_id>')
+@login_required
+def problem_list(tag_id):
+	probForm = ProblemForm()
+	solForm = SolutionForm()
 
+	tag = Tag.query.get(tag_id)
+	problems = tag.problems
+	
+
+	# problem title을 읽으면서
+	# #달린 것 중 set을 모아야 하는데..
+
+		
+	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
+
+
+@app.route('/update_solution/<prob_id>/<tag_id>', methods=["POST"])
+@login_required
+def update_solution(prob_id, tag_id):
+	problem = Problem.query.get(prob_id)
+	solution = problem.solution[0]
+	probForm = ProblemForm()
+	solForm = SolutionForm(request.form, solution);
+	if solForm.validate_on_submit():
+		solForm.populate_obj(solution)
+		db.session.commit()
+
+	tag = Tag.query.get(tag_id)
+	problems = tag.problems
+
+	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
+
+# for ajax
+@app.route("/get_problem/<prob_id>")
+@login_required
+def get_problem(prob_id):
+	problem = Problem.query.get(prob_id)
+	tag = problem.tag
+	# [0]안적어서 3시간 낭비함
+	solution = problem.solution[0]
+	return jsonify(prob_id=prob_id, tag_id=tag.id, prob_title=problem.title, prob_content=problem.content, sol_content=solution.content)
+
+	
+	
 
 
 # file upload and download module
-#########################################################################################
-
+##############################################################################################################
 def allowed_file(filename):
 	return '.' in filename and \
 			filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -153,21 +300,35 @@ def upload_file():
 def uploaded_file(filename):
 	return send_from_directory(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']), filename)
 
-#########################################################################################
+##############################################################################################################
+
+@app.route('/add/<phone>/<score>')
+def upload_db(phone, score):
+	if UserMirror.query.get(phone) == None:
+		user = UserMirror(phone=phone, score=score)
+		db.session.add(user)
+		db.session.commit()
+		return "add success"
+	else :
+		user = UserMirror.query.get(phone)
+		user.score = int(score)
+		db.session.commit()
+		return "modify success"
 
 
 
-# Error logging module
-#########################################################################################
-'''def show_errormessage(error):
-     desc = error.get_description(flask.request.environ)
-     return render_template('error.html',
-        code=error.code,
-        name=error.name,
-        description=Markup(desc)
-    ), error.code
+@app.route('/show_rank')
+def show_rank():
+	# users = [ {'phone':'0909' , 'score':30}, {'phone':'0909' , 'score':30}, {'phone':'0909' , 'score':30}...]
+	users = UserMirror.query.order_by(UserMirror.score).all()
 
-for _exc in default_exceptions:
-    app.error_handlers[_exc] = show_errormessage
-del _exc'''
-#########################################################################################
+	tmp = []
+	for user in users:
+		t = {}
+		t['phone'] = user.phone
+		t['score'] = user.score
+		tmp.append(t)
+
+	# json.dumps([{"jein":1},{"jein":1}])
+
+	return json.dumps(tmp)

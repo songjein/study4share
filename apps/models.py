@@ -45,15 +45,9 @@ class Solution(db.Model):
     problem = db.relationship('Problem',
         foreign_keys=[prob_id],
         primaryjoin="Solution.prob_id==Problem.id",
-        backref=db.backref('solutions', cascade='all, delete-orphan', lazy='dynamic'))
+        backref=db.backref('solution', cascade='all, delete-orphan', lazy='dynamic'))
 
-    # 유저 아이디 입력 받은걸로 get해서 객체를 user 에 저장
-    user_id = db.Column(db.String(255), db.ForeignKey('user.id'))
-    user = db.relationship('User', 
-        foreign_keys=[user_id],
-        primaryjoin="Solution.user_id==User.id",
-        backref=db.backref('solutions', cascade='all, delete-orphan', lazy='dynamic'))
-
+    users = db.Column(db.Text(), default="")
     content = db.Column(db.Text(), default="")
 
 
@@ -72,4 +66,10 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % (self.name)
 
+
+class UserMirror(db.Model):
+    # id = db.Column(db.String(255), primary_key=True)
+
+    phone = db.Column(db.String(255), primary_key=True)
+    score = db.Column(db.Integer)
 

@@ -1,65 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Study for share</title>
-	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-	
-	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
-	<style>
-		body{margin-top:3%;}
-		#title_wrapper {margin-bottom: 5%;}
-                #title {
-                        font-size:6em;
-                        color:black;
-                        text-decoration: none;
-                        
-			/*text-shadow : left top blur color*/	
-			text-shadow: 3px 3px 20px yellow;
-  			-o-text-shadow: 3px 3px 20px yellow;
-  			-moz-text-shadow: 3px 3px 20px yellow;
-  			-webkit-text-shadow: 3px 3px 20px yellow;
-			filter:dropshadow(color=yellow, offX=1, offY=1);zoom:1;
-                        padding: 0% 3%;
-                        font-family: 'Rock Salt', cursive;
-                        /*font-family: 'Shadows Into Light', cursive;*/
-                }
-		#wrapper {
-			font-size:4em;
-			padding: 2% 5%;
-		}
-		@media screen and (max-width:480px){
-			#title{font-size:2.5em;}
-			#wrapper{font-size:2em;}
-		}
-	</style>
-</head>
-<body>
-	
+{% extends "base.html" %}
 
-
-	<div class="container">
-		
-		<div id="title_wrapper">
-			<center>
-				<a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:#FFBB00">4</span>Share</a>
-			</center>
-		</div>
-
+{% block content %}
 
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><strong>Favorite tags ~&nbsp;<span class="glyphicon glyphicon-tags"></span></h3>
 		  </div>
 		  <div id="wrapper"  class="panel-body">
-			<a href="{{url_for('problem_list')}}" class="text-muted" >,김수안</a>
-			<a href="{{url_for('problem_list')}}" class="text-primary" >,김지윤</a>
-			<a href="{{url_for('problem_list')}}" class="text-success" >,코코징</a>
-			<a href="{{url_for('problem_list')}}" class="text-info" >,소리씨나에게와요</a>
-			<a href="{{url_for('problem_list')}}" class="text-warning" >,cyblack</a>
-			<a href="{{url_for('problem_list')}}" class="text-danger" >,신원식</a>
+			<a href="#" class="text-muted" >,김수안</a>
+			<a href="#" class="text-primary" >,김지윤</a>
+			<a href="#" class="text-success" >,코코징</a>
+			<a href="#" class="text-info" >,소리씨나에게와요</a>
+			<a href="#" class="text-warning" >,cyblack</a>
+			<a href="#" class="text-danger" >,신원식</a>
 		  </div>
 		</div>
 		
@@ -73,9 +26,4 @@
 		<span class="label label-danger">Danger</span>
 	</div>
 
-
-
-
-</body>
-</html>
-
+{% endblock %}

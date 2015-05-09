@@ -1,0 +1,66 @@
+<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+	
+	<!--플래시 메시지 띄워주기 여기 에-->
+	<form action="{{url_for('make_problem_in_listpage', tag_id=tag.id)}}" method="POST"  role="form">
+	 {{ probForm.hidden_tag() }}
+	  <div class="form-group">
+	    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{probForm.title.label}}</label>
+	     	{{probForm.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="문제가 뭐요?")}}
+	  </div>
+	  {{probForm.content(id="prob_summernote")}}
+
+	  <br>
+	  {{probForm.tag()}}
+<script>
+	$(function(){
+		$('#tag').val("{{tag.id}}")
+	})
+</script>
+	  <br>
+	  <span style="color:#FFB2F5; font-weight:bold; font-size:3em;"> {{probForm.file.label}}</span>
+	  <span style="color:gray">업로드 취소 방법은; 파일 선택 클릭후 취소 클릭!</span>
+  	  {{probForm.file()}}
+	  <br>
+          <button id="prob_submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12"><strong>등록! =_-</strong></button>
+          <br>
+	</form>
+ 	<br>
+        <button data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12"><strong>안써! -_=</strong></button>
+
+<script>
+  $(document).ready(function() {
+	$("#prob_submitbtn").click(function(){
+		if ($('#newtag').val().length > 0)
+			$('#tag').val($('#newtag').val())
+		return true
+	})
+    $('#prob_summernote').summernote({
+     height: 150,                 // set editor height
+
+     minHeight: null,             // set minimum height of editor
+     maxHeight: null,             // set maximum height of editor
+
+     focus: true,                 // set focus to editable area after initializing summernote
+     toolbar: [
+       //[groupname, [button list]]
+	         
+       ['style', ['bold', 'underline', 'clear', 'color']],
+       ['font', ['strikethrough']],
+       ['fontsize', ['fontsize']],
+       ['para', ['ul', 'ol' ]],
+       ['insert', ['picture', 'video', 'link']],
+	['misc', ['codeview']]
+     ],
+     codemirror: {
+	theme: 'monokai'
+     }     
+   });
+  });
+</script>
+

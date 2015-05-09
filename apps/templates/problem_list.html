@@ -1,77 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Study for share</title>
-	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-        <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
-	
-	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+{% extends "base.html" %}
+{% block content %}
+
 	<style>
-		body{margin-top:3%;}
-		#title_wrapper {margin-bottom: 5%;}
-                #title {
-                        font-size:6em;
-                        color:black;
-			/*text-shadow : left top blur color*/	
-			text-shadow: 3px 3px 20px yellow;
-  			-o-text-shadow: 3px 3px 20px yellow;
-  			-moz-text-shadow: 3px 3px 20px yellow;
-  			-webkit-text-shadow: 3px 3px 20px yellow;
-			filter:dropshadow(color=yellow, offX=1, offY=1);zoom:1;
-                        padding: 0% 3%;
-                        font-family: 'Rock Salt', cursive;
-                        /*font-family: 'Shadows Into Light', cursive;*/
-                }
+		#list_title {
+			font-weight: bold;
+			font-size: 2em;
+		}
+			#list_title span{
+				color: #353535;
+			}
+		.list_menu {
+			font-size: 2.5em;
+		}
+		.list_tag{
+			color : #3DB7CC ;
+			font-size: 1.5em;
+		}
 
 		@media screen and (max-width:480px){
-			#title{font-size:2.5em; }
+			#list_title{
+				font-size: 1.5em;
+			}	
+			.list_menu{
+				font-size: 2em;
+			}
+			.list_tag{
+				font-size: 1.2em;	
+			}
+		}
+
+		a[class*="list_tag"]:hover{
+			background:#FFF612;
+		}
+
+		a[id*="list_title"]:hover{
+			background:#FFF612;
 		}
 	</style>
-</head>
-<body>
-	
 
-
-	<div class="container">
-		
-		<div id="title_wrapper">
-			<center>
-				<a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:#FFBB00">4</span>Share</a>
-			</center>
+<div class="col-md-8 col-md-offset-2">
+   	 <div id="list_content" class="list-group text-center">
+			<div  class="list-group-item list-group-item-danger">
+				
+				<strong>Problem lists of </strong>
+				<a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id)}}">
+					<span class="text-primary" >&nbsp;#{{tag.id}}</span>
+				</a><br>
+				<strong>/Hash_tags/</strong>
+				<!-- hash tag list -->
+				<div id="sortable">
+					<a href="#" class="list_tag">&nbsp;#1&nbsp;</a>
+					<a href="#" class="list_tag">&nbsp;#2&nbsp;</a>
+					<a href="#" class="list_tag">&nbsp;#3&nbsp;</a>
+					<a href="#" class="list_tag">&nbsp;#4&nbsp;</a>
+					<a href="#" class="list_tag">&nbsp;#5&nbsp;</a>
+					<a href="#" class="list_tag">&nbsp;#6&nbsp;</a>
+				</div>
+				<br>
+				<a href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-ok-circle"></span></a>&nbsp;&nbsp;
+				<a href="#"><span style="color:#AF4848" class="list_menu glyphicon glyphicon-remove-circle"></span></a>&nbsp;&nbsp;
+				<a id="make_prob" href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
+			</div>
+			{% for problem in problems %}
+			{% if loop.index0%2 == 0 %}
+			<a href="#" class="prob list-group-item list-group-item-warning" value="{{problem.id}}">{{problem.title}}</a>
+			{% elif loop.index0%2 == 1%}
+			<a href="#" class="prob list-group-item list-group-item-success" value="{{problem.id}}">{{problem.title}}</a>
+			{% endif %}
+			{% endfor %}
 		</div>
+  	</div>
+</div>
 
-		<div class="panel panel-default">
+<script>
+	sol_content = "None"
+	$(function(){
+		
+		$('#sortable').sortable()
+	
+		$('.prob').click(function(){
+			$.ajax({
+				url: '/get_problem/' + $(this).attr("value"),
+				type: 'GET',
+				//data: {
+				//name: 'test',
+				//region: 'test'
+				//},
+				dataType: "JSON",
+				success: function(data){
+					sol_content = data.sol_content
+					$('#sol_form').attr("action", "/update_solution/" + data.prob_id + "/" + data.tag_id)
+					$('#problem_content').html(data.prob_content)
+					$('#problem_title').html(data.prob_title)
+					$('#solution_content').html(data.sol_content)
+					$('#ctModal').modal()
+				}		
+
+			})
+			return false
+		})	
+
+		//$(window).scroll(function() {
+ 		//	if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+       		//		alert("near bottom!");
+  		//	}
+		//});
+
+		$(window).scroll(function() {
+   			if($(window).scrollTop() + $(window).height() == $(document).height()) {
+				$('#list_content').append()
+   			}
+		});
+	})
+</script>
+
+
+<!-- Problem list 에문제 클릭하면 나오는 모달창 -->
+<!-- Modal -->
+<div class="modal fade" id="ctModal" tabindex="-1" role="dialog" aria-labelledby="ctModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ctModalLabel">
+		<!-- ajax로 problem_title 채워줌-->
+		<strong><span class="menu_icon glyphicon glyphicon-star" style="color:red"></span>{{tag.id}}#<span id="problem_title"></span></strong>
+	</h4>
+      </div>
+      <div class="modal-body">	
+		<!-- ajax로 채우는 부분 -->
+		<p id="problem_content"></p>
+		<hr>
+		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><strong><span style="color">#</span>C programming</strong></h3>
+ 		   <h3 class="panel-title">Solution modified by <abbr title="멍텅구리"><strong>whom</strong></abbr></h3>
 		  </div>
 		  <div class="panel-body">
-		    <div class="list-group">
-				<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in<span class="label label-danger">new</span></a>
-				<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero<span class="label label-danger">new</span></a>
-				<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-				<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-				<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-				<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-				<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-				<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-			</div>
-		  </div>
+			<p id="solution_content">
+			</p>
+			{% include "make_solution.html" %}
+ 		 </div>
 		</div>
-		
-		
-
-		<span class="label label-default">Default</span>
-		<span class="label label-primary">Primary</span>
-		<span class="label label-success">Success</span>
-		<span class="label label-info">Info</span>
-		<span class="label label-warning">Warning</span>
-		<span class="label label-danger">Danger</span>
-	</div>
-
+      </div>
+      <div class="modal-footer  bg-success">
+        <button type="button" class="btn btn-danger" >문제 삭제</button>
+        <button type="button" class="btn btn-warning" >문제 수정</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">나가기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-</body>
-</html>
+
+
+<script>
+$(function(){
+	{% if mpmodal_open %}
+		$('#mpModal').modal()
+	{% endif %}
+	$('#make_prob').click(function(){
+		$('#mpModal').modal()
+	})
+})
+
+</script>
+
+<!--Modal -->
+<div class="modal fade" id="mpModal" tabindex="-1" role="dialog" aria-labelledby="mpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="mpModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><strong>글쓰기#{{tag.id}}</strong></h4>
+      </div>
+      <div class="modal-body">
+	{% for message in get_flashed_messages() %}
+		<div class="col-md-12  alert alert-info">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{message}}
+		</div>
+	{% endfor %}
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+	{% include "make_problem_in_listpage.html" %}
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+      <br> 
+      </div>
+      <div class="modal-footer bg-success">
+		&nbsp;
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

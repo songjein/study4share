@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Study for share</title>
+	
+	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+	<link href="{{url_for('static', filename='css/summernote.css')}}" rel="stylesheet" media="screen">
+	<link href="{{url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" >
+        <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	
+	 
+	<script src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
+	<script src="{{url_for('static', filename='js/jquery.ui.touch-punch.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js/summernote.min.js')}}"></script>
+	<style>
+		body{margin-top:4%;}
+		a:hover {text-decoration: none;}
+		a:visited {text-decoration: none;}
+		a:active {text-decoration: none;}
+		#title {
+		font-size:6em;	
+			color:black;
+			text-decoration: none;
+			
+			/*text-shadow : left top blur color*/	
+			text-shadow: 3px 3px 20px yellow;
+  			-o-text-shadow: 3px 3px 20px yellow;
+  			-moz-text-shadow: 3px 3px 20px yellow;
+  			-webkit-text-shadow: 3px 3px 20px yellow;
+			filter:dropshadow(color=yellow, offX=1, offY=1);zoom:1;
+			padding: 0% 3%;
+			font-family: 'Rock Salt', cursive;
+			
+		}
+		#wrapper {
+			font-size: 4em;
+			padding: 2% 5%;
+		}
+		@media screen and (max-width:480px){
+			#title{font-size:2.5em; }
+			#wrapper{font-size:2em;}
+		}
+	</style>
+
+</head>
+<body>
+	
+
+	<center>
+		<a href="{{url_for('main')}}" id="title" class="text-center">Study<span style="color:#FFBB00">4</span>Share</a>
+	</center>
+
+	<div class="container" style="margin-top:2%">
+		
+		{% block content %}{% endblock %}	
+	</div>
+
+
+</body>
+</html>
+
