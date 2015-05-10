@@ -43,20 +43,21 @@
 			<div  class="list-group-item list-group-item-danger">
 				
 				<strong>Problem lists of </strong>
-				<a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id)}}">
+				<a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}">
 					<span class="text-primary" >&nbsp;#{{tag.id}}</span>
 				</a><br>
-				<strong>/Hash_tags/</strong>
+				<strong>/Double_hash_tags/</strong>
 				<!-- hash tag list -->
 				<div id="sortable">
-					<a href="#" class="list_tag">&nbsp;#1&nbsp;</a>
-					<a href="#" class="list_tag">&nbsp;#2&nbsp;</a>
-					<a href="#" class="list_tag">&nbsp;#3&nbsp;</a>
-					<a href="#" class="list_tag">&nbsp;#4&nbsp;</a>
-					<a href="#" class="list_tag">&nbsp;#5&nbsp;</a>
-					<a href="#" class="list_tag">&nbsp;#6&nbsp;</a>
+					{% if tags[0]!=""%}
+						{% for tag in tags %}
+						<a href="#" class="list_tag">&nbsp;{{tag}}&nbsp;</a>
+						{% endfor %}
+					{% else %}
+						등록된 해시태그가 없습니다!
+					{% endif %}
+						
 				</div>
-				<br>
 				<a href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-ok-circle"></span></a>&nbsp;&nbsp;
 				<a href="#"><span style="color:#AF4848" class="list_menu glyphicon glyphicon-remove-circle"></span></a>&nbsp;&nbsp;
 				<a id="make_prob" href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
@@ -75,8 +76,49 @@
 <script>
 	sol_content = "None"
 	$(function(){
+		// sModal_open이 정의되있으면 prob_id도 정의되있음.	
+		{% if sModal_open %}
+			$('#ctModal').modal()
+			$.ajax({
+				url: '/get_problem/' + {{prob_id}},
+				type: 'GET',
+				//data: {
+				//name: 'test',
+				//region: 'test'
+				//},
+				dataType: "JSON",
+				success: function(data){
+					sol_content = data.sol_content
+					$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
+					$('#problem_content').html(data.prob_content)
+					$('#problem_title').html(data.prob_title)
+					$('#solution_content').html(data.sol_content)
+					$('#ctModal').modal()
+				}
+			})		
+		{% endif %}
 		
-		$('#sortable').sortable()
+		function getListOfHtags(){
+			var output = ""
+			$('.list_tag').each(function(index, item){
+				text =  $('.list_tag').eq(index).text() 
+				if (index == 0) output = $.trim(text);
+				else output += "," + $.trim(text);
+			})	
+			return output	
+		}
+
+
+		$('#sortable').sortable({
+			update: function(event, ui){
+				$.get('/update_htags/{{tag.id}}',{
+					listOfHtags : getListOfHtags()		
+				}, function(data) {
+					// 바꿔주기
+					window.location.reload()
+				})
+			}
+		})
 	
 		$('.prob').click(function(){
 			$.ajax({
@@ -89,7 +131,7 @@
 				dataType: "JSON",
 				success: function(data){
 					sol_content = data.sol_content
-					$('#sol_form').attr("action", "/update_solution/" + data.prob_id + "/" + data.tag_id)
+					$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
 					$('#problem_content').html(data.prob_content)
 					$('#problem_title').html(data.prob_title)
 					$('#solution_content').html(data.sol_content)

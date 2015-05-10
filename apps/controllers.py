@@ -28,15 +28,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 @app.route("/")
 def index():
-@app.route("/main")
-@login_required
-def main():
-	tags = Tag.query.all()
-	form = ProblemForm()
-	textcolor = ['muted', 'primary', 'success', 'info', 'warning', 'danger']
-	random.shuffle(tags)
-	random.shuffle(textcolor) 
-	return render_template('main.html', tags=tags, form=form, textcolor=textcolor)
+	return redirect(url_for('login'))
 
 # login & join  function
 ##############################################################################################################
@@ -107,10 +99,9 @@ def join():
 
 # menu functions (make_problem - pencil icon, favorite_list - start icon
 ##############################################################################################################
-@app.route('/make_problem', methods=["GET", "POST"])
+@app.route('/main', methods=["GET", "POST"])
 @login_required
-def make_problem():
-	
+def main():
 	tags = Tag.query.all()
 	textcolor = ['muted', 'primary', 'success', 'info', 'warning', 'danger']
 	random.shuffle(tags)
@@ -135,6 +126,17 @@ def make_problem():
 			tag = tag
 		)
 		db.session.add(problem)
+		
+		# 이 코드는 problem_list 에도 있다.
+		# 만약 problem의 제목에 새로운 해시태그가 포함되어 있다면
+		# htag list업데이트 해줘야한다.
+		if "#" in problem.title and problem.title.count('#') >= 2:
+			key = problem.title.split('#')[1] 
+			if key not in tag.sort:	
+				if tag.sort=="":
+					tag.sort += key
+				else:
+					tag.sort += "," + key
 
 		solution = Solution(
 			prob_id = problem.id,
@@ -158,16 +160,88 @@ def make_problem():
 	return render_template('main.html', form=form, tags=tags, mpmodal_open=False, textcolor=textcolor)
    
 
-@app.route('/make_problem_in_listpage/<tag_id>', methods=["GET", "POST"])
+
+##############################################################################################################
+
+@app.route('/problem_list/<tag_id>/<prob_id>', methods=["GET", "POST"])
 @login_required
-def make_problem_in_listpage(tag_id):
+def problem_list(tag_id, prob_id):
 	probForm = ProblemForm()
 	solForm = SolutionForm()
 
 	tag = Tag.query.get(tag_id)
 	problems = tag.problems
 	
+	#################################################################
+	# problems 해시태그 이용 정렬
+	#################################################################
+	none_htag_list = [] # hash tag가 없는 문제를 담는다
+	dict_for_flist = {} # hash tag가 있는 문제를 담는다
+	if tag.sort == "":
+		for prob in problems:
+			if "#" in prob.title and prob.title.count('#') >= 2:
+				htag = prob.title.split('#')[1] #  "[0]#[1]제인#[2] 머가머가무가머가"
+					
+				if htag not in dict_for_flist: # 만약 태그가 이미 dict안에없다면 
+					dict_for_flist[htag] = [] # dict안에 이 hash tag를 위한 list를 만들어 준다.
+				# else로 하지마!	
+				if htag in dict_for_flist: # 만약 태그가 이미 dict안에 있다면
+					dict_for_flist[htag].append(prob) # 이 문제를 거기에 추가한다.
+						
+			else :
+				none_htag_list.append(prob)					
+		# Tag 의 sort  값 수정 (dict의 키값들로)
+		s = "" 
+		for key in dict_for_flist.keys():
+			if s == "":
+				s += key
+			else:
+				s += "," + key
+		tag.sort = s
+		db.session.commit()
 
+	none_htag_list = [] # hash tag가 없는 문제를 담는다
+	dict_for_flist = {} # hash tag가 있는 문제를 담는다
+	if tag.sort != "":	
+		# tag.sort를 기준으로 만든다. ? 근데 나중에 새로운 태그가 들어온다면?어케해?
+		# problem을 추가할때마다 모니터링 하는 수 밖에 없는듯! tag.sort에 없다면 맨뒤에 추가해주면된다.
+		htags = tag.sort.split(",")
+		for key in htags:
+			dict_for_flist[key] = []
+
+		for prob in problems:
+			if "#" in prob.title and prob.title.count('#') >= 2:
+				key = prob.title.split('#')[1] 
+				dict_for_flist[key].append(prob)
+						
+			else :
+				none_htag_list.append(prob)					
+		# sort by hash tag
+		tproblems = []
+		s = ""	
+		for key in htags:
+			tproblems += dict_for_flist[key]	
+		tproblems += none_htag_list
+		
+		problems = tproblems
+	
+	# template에 전달해줘서 화면에 표시해 줄 것이다.
+	tags = tag.sort.split(',')	
+	
+	#################################################################
+
+	# prob_id 에 먼가 담겨있으면 그건 solution 업데이트 할때임!~!	
+	if Problem.query.get(prob_id):
+		solution = Problem.query.get(prob_id).solution[0]
+		solForm = SolutionForm(request.form, solution);
+
+		if solForm.validate_on_submit():
+			solForm.populate_obj(solution)
+			db.session.commit()
+		# 예외로 prob_id 전달하기
+		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, sModal_open=True, prob_id=prob_id)   
+
+	# prob_id가 " "이면 이건 make_problem
 	if probForm.validate_on_submit():
 		tag =  Tag.query.get(probForm.tag.data)
 		if tag is None:
@@ -186,15 +260,26 @@ def make_problem_in_listpage(tag_id):
 			tag = tag
 		)
 		db.session.add(problem)
+		
+		# 이코드는 main에도 있다.	
+		# 만약 problem의 제목에 새로운 해시태그가 포함되어 있다면
+		# htag list업데이트 해줘야한다.
+		if "#" in problem.title and problem.title.count('#') >= 2:
+			key = problem.title.split('#')[1] 
+			if key not in tag.sort:	
+				if tag.sort=="":
+					tag.sort += key
+				else:
+					tag.sort += "," + key
 
 		solution = Solution(
 			prob_id = problem.id,
 			problem = problem,
-			content = u""
+			content = u"답을 입력해 주세요^^"
 		)
 		db.session.add(solution)
 		db.session.commit()	
-		return redirect(url_for('problem_list', tag_id=tag_id))
+		return redirect(url_for('problem_list', tag_id=tag_id, prob_id=" "))
 	# form error일 경우
 	elif request.method == "POST" :	
 		# form에 설정했던게 안먹혀서 예외처리함
@@ -204,51 +289,12 @@ def make_problem_in_listpage(tag_id):
 		errors += probForm.title.errors +  probForm.content.errors + probForm.tag.errors + probForm.newtag.errors
 		for e in errors:
 			flash(e)
-		return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True)   
+		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True)   
 	
-	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
+	return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm)   
    
 
 
-@app.route('/favorite_list')
-@login_required
-def favorite_list():
-	return render_template('favorite_list.html')
-
-##############################################################################################################
-
-@app.route('/problem_list/<tag_id>')
-@login_required
-def problem_list(tag_id):
-	probForm = ProblemForm()
-	solForm = SolutionForm()
-
-	tag = Tag.query.get(tag_id)
-	problems = tag.problems
-	
-
-	# problem title을 읽으면서
-	# #달린 것 중 set을 모아야 하는데..
-
-		
-	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
-
-
-@app.route('/update_solution/<prob_id>/<tag_id>', methods=["POST"])
-@login_required
-def update_solution(prob_id, tag_id):
-	problem = Problem.query.get(prob_id)
-	solution = problem.solution[0]
-	probForm = ProblemForm()
-	solForm = SolutionForm(request.form, solution);
-	if solForm.validate_on_submit():
-		solForm.populate_obj(solution)
-		db.session.commit()
-
-	tag = Tag.query.get(tag_id)
-	problems = tag.problems
-
-	return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)   
 
 # for ajax
 @app.route("/get_problem/<prob_id>")
@@ -260,10 +306,54 @@ def get_problem(prob_id):
 	solution = problem.solution[0]
 	return jsonify(prob_id=prob_id, tag_id=tag.id, prob_title=problem.title, prob_content=problem.content, sol_content=solution.content)
 
-	
-	
+#for ajax
+@app.route('/update_htags/<tag_id>')
+def update_htags(tag_id):
+	listOfHtags = request.args['listOfHtags']
+
+	tag = Tag.query.get(tag_id)
+	tag.sort = listOfHtags
+	db.session.commit()
+
+	return "success" 
 
 
+##############################################################################################################
+@app.route('/favorite_list')
+@login_required
+def favorite_list():
+	return render_template('favorite_list.html')
+
+
+
+##############################################################################################################
+# management function
+##############################################################################################################
+@app.route('/clear_tags')
+def clear_tags():
+	tags = Tag.query.all()
+	s = ""
+	for tag in tags:
+	#	s += tag.id + "</br>"
+		c = 0
+		for prob in tag.problems:	
+			c += 1
+		if c == 0:
+			db.session.delete(tag)
+	db.session.commit()
+
+	return "useless tags are all removed"
+
+@app.route("/test")
+def test():
+	tags = Tag.query.all()
+	for tag in tags:
+		tag.sort = ""
+	db.session.commit()
+	return "ok"
+
+
+##############################################################################################################
 # file upload and download module
 ##############################################################################################################
 def allowed_file(filename):
@@ -300,8 +390,16 @@ def upload_file():
 def uploaded_file(filename):
 	return send_from_directory(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']), filename)
 
-##############################################################################################################
 
+
+
+
+
+
+
+##############################################################################################################
+# 지윤이네꺼!
+##############################################################################################################
 @app.route('/add/<phone>/<score>')
 def upload_db(phone, score):
 	if UserMirror.query.get(phone) == None:
@@ -332,3 +430,4 @@ def show_rank():
 	# json.dumps([{"jein":1},{"jein":1}])
 
 	return json.dumps(tmp)
+##############################################################################################################

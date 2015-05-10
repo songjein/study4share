@@ -7,7 +7,7 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
 	
 	<!--플래시 메시지 띄워주기 여기 에-->
-	<form action="{{url_for('make_problem')}}" method="POST"  role="form">
+	<form action="{{url_for('main')}}" method="POST"  role="form">
 	 {{ form.hidden_tag() }}
 	  <div class="form-group">
 	    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{form.title.label}}</label>

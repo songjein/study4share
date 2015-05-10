@@ -10,6 +10,7 @@ from flask.ext.login import UserMixin
 # 태그는 일단 유저가 추가하는대로 생기지만, 선택당하지 못하면 바로 삭제 시킬것이다.
 class Tag(db.Model):
     id = db.Column(db.String(255), primary_key=True)
+    sort = db.Column(db.Text(), default="")
     #questions
 
 
@@ -30,6 +31,8 @@ class Problem(db.Model):
         foreign_keys=[tag_id],
         primaryjoin="Problem.tag_id==Tag.id",
         backref=db.backref('problems', cascade='all, delete-orphan', lazy='dynamic'))
+
+    date_created = db.Column(db.DateTime(), default=db.func.now())
 
     # 파일 첨부? 확장자로 이미지 혹은 파일 구분하기."aaa.txt,bbb.txt,eee.jpg" 이런식으로 구분
     fkey1 = db.Column(db.String(255), default="")
@@ -65,6 +68,11 @@ class User(UserMixin, db.Model):
     favlist = db.Column(db.Text(), default="")
     def __repr__(self):
         return '<User %r>' % (self.name)
+
+
+
+
+
 
 
 class UserMirror(db.Model):

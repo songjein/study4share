@@ -26,25 +26,25 @@
 	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF612"></span></a>
 		{% for tag in tags %}
 			{% if loop.index0%7 == 0 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[0]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[0]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 1 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[1]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[1]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 2 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[2]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[2]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 3 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[3]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[3]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 4 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[4]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[4]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 5 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[5]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[5]}}" >{{tag.id}}</a>
 
 			{% elif loop.index0%7 == 6 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[6]}}" >{{tag.id}}</a>
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[6]}}" >{{tag.id}}</a>
 
 			{% endif %}	
 	{% endfor %}

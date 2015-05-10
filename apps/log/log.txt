@@ -1,0 +1,977 @@
+Exception on /problem_list/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 200, in problem_list
+    return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)
+NameError: global name 'problems' is not defined
+Exception on /problem_list/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 200, in problem_list
+    return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)
+NameError: global name 'problems' is not defined
+Exception on /problem_list/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 200, in problem_list
+    return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)
+NameError: global name 'problems' is not defined
+Exception on /main [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 149, in main
+    return render_template('main.html', form=form, tags=tags, mpmodal_open=False, textcolor=textcolor)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/main.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/main.html", line 29, in block "content"
+    <a href="{{url_for('problem_list', tag_id=tag.id)}}" class="tagd text-{{textcolor[0]}}" >{{tag.id}}</a>
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 312, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 305, in url_for
+    force_external=external)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/routing.py", line 1649, in build
+    raise BuildError(endpoint, values, method)
+BuildError: ('problem_list', MultiDict([('tag_id', u'\ub09a\uc2dc\uc2e0\uacf5')]), None)
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 214, in problem_list
+    return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 46, in block "content"
+    <a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id)}}">
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 312, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 305, in url_for
+    force_external=external)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/routing.py", line 1649, in build
+    raise BuildError(endpoint, values, method)
+BuildError: ('problem_list', MultiDict([('tag_id', u'\ud14c\uc2a4\ud29c')]), None)
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 166, in problem_list
+    solution = Problem.query.get(prob_id).solution[0]
+AttributeError: 'NoneType' object has no attribute 'solution'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 166, in problem_list
+    return "jein"
+AttributeError: 'NoneType' object has no attribute 'solution'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 166, in problem_list
+    return "jein"
+AttributeError: 'NoneType' object has no attribute 'solution'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 214, in problem_list
+    
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 46, in block "content"
+    <a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id)}}">
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 312, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 305, in url_for
+    force_external=external)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/routing.py", line 1649, in build
+    raise BuildError(endpoint, values, method)
+BuildError: ('problem_list', MultiDict([('tag_id', u'\ud14c\uc2a4\ud29c')]), None)
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 166, in problem_list
+    return "jein"
+AttributeError: 'NoneType' object has no attribute 'solution'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 215, in problem_list
+    return render_template('problem_list.html', tag=tag, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=False)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 46, in block "content"
+    <a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id)}}">
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 312, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 305, in url_for
+    force_external=external)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/routing.py", line 1649, in build
+    raise BuildError(endpoint, values, method)
+BuildError: ('problem_list', MultiDict([('tag_id', u'\ud14c\uc2a4\ud29c')]), None)
+Exception on /problem_list/테스튜/  [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 203, in problem_list
+    return redirect(url_for('problem_list', tag_id=tag_id))
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 312, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/helpers.py", line 305, in url_for
+    force_external=external)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/routing.py", line 1649, in build
+    raise BuildError(endpoint, values, method)
+BuildError: ('problem_list', MultiDict([('tag_id', u'\ud14c\uc2a4\ud29c')]), None)
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 244, in clear_tags
+    if len(tag.problems) == 0 :
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    if len(probs) == 0 :
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    if len(probs) == 0 :
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    if len(probs) == 0 :
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    if probs[0] == None :
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/dynamic.py", line 260, in __getitem__
+    return self._clone(sess).__getitem__(index)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/query.py", line 2236, in __getitem__
+    return list(self[item:item + 1])[0]
+IndexError: list index out of range
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    if probs[0] == None :
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/dynamic.py", line 260, in __getitem__
+    return self._clone(sess).__getitem__(index)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/query.py", line 2236, in __getitem__
+    return list(self[item:item + 1])[0]
+IndexError: list index out of range
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    c = 0
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    c = 0
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    c = 0
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/dynamic.py", line 260, in __getitem__
+    return self._clone(sess).__getitem__(index)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/query.py", line 2236, in __getitem__
+    return list(self[item:item + 1])[0]
+IndexError: list index out of range
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    return s
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/dynamic.py", line 260, in __getitem__
+    return self._clone(sess).__getitem__(index)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/query.py", line 2236, in __getitem__
+    return list(self[item:item + 1])[0]
+IndexError: list index out of range
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 245, in clear_tags
+    return s
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /clear_tags [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/html/study4share/apps/controllers.py", line 246, in clear_tags
+    s += len(tag.problems)
+TypeError: object of type 'AppenderBaseQuery' has no len()
+Exception on /test [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1478, in full_dispatch_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1566, in make_response
+    raise ValueError('View function did not return a response')
+ValueError: View function did not return a response
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 200, in problem_list
+    dic_for_flist[key] = []
+NameError: global name 'dic_for_flist' is not defined
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 202, in problem_list
+    for prob in problmes:
+NameError: global name 'problmes' is not defined
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 212, in problem_list
+    tproblems += dict_for_flist[key]
+KeyError: u'4'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 214, in problem_list
+    s += str(type(dict_for_flist[key]))
+KeyError: u'4'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 214, in problem_list
+    s += str(type(dict_for_flist[key]))
+KeyError: u'4'
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 215, in problem_list
+    tproblems += non_htag_list
+NameError: global name 'non_htag_list' is not defined
+Exception on /problem_list/흰둥몬세상/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 273, in problem_list
+    return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 52, in block "content"
+    {% if tags.count() != 0 %}
+TypeError: count() takes exactly one argument (0 given)
+Exception on /problem_list/study4share/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 273, in problem_list
+    return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 59, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/problem_list.html", line 52, in block "content"
+    {% if tags.count() != 0 %}
+TypeError: count() takes exactly one argument (0 given)
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1478, in full_dispatch_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1577, in make_response
+    rv = self.response_class.force_type(rv, request.environ)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/wrappers.py", line 841, in force_type
+    response = BaseResponse(*_run_wsgi_app(response, environ))
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/wrappers.py", line 57, in _run_wsgi_app
+    return _run_wsgi_app(*args)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/test.py", line 867, in run_wsgi_app
+    app_iter = app(environ, start_response)
+TypeError: 'int' object is not callable
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1478, in full_dispatch_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1577, in make_response
+    rv = self.response_class.force_type(rv, request.environ)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/wrappers.py", line 841, in force_type
+    response = BaseResponse(*_run_wsgi_app(response, environ))
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/wrappers.py", line 57, in _run_wsgi_app
+    return _run_wsgi_app(*args)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/test.py", line 867, in run_wsgi_app
+    app_iter = app(environ, start_response)
+TypeError: 'int' object is not callable
+Exception on /problem_list/테스튜/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1478, in full_dispatch_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1577, in make_response
+    rv = self.response_class.force_type(rv, request.environ)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/wrappers.py", line 841, in force_type
+    response = BaseResponse(*_run_wsgi_app(response, environ))
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/test.py", line 867, in run_wsgi_app
+    app_iter = app(environ, start_response)
+TypeError: 'int' object is not callable
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /update_htags/테스튜 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: update_htags() takes no arguments (1 given)
+Exception on /problem_list/코딩왕송제인/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 205, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'bb'
+Exception on /problem_list/코딩왕송제인/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 205, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'bb'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 205, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 205, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 206, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 204, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/    ㄴㅁㅇ    /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 204, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'3\ub2e8\uc6d0'
+Exception on /problem_list/    ㄴㅁㅇ    /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 204, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'3\ub2e8\uc6d0'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 204, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/  ㅇㄴㅁ   /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 204, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'1\ub2e8\uc6d0'
+Exception on /problem_list/    ㄴㅁㅇ    /  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 215, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'3\ub2e8\uc6d0'
