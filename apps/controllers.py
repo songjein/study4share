@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from sqlalchemy import desc
 
-from apps import app, db
+from apps import app, db, login_manager, socketio
 
 from apps.models import (User, Tag, Problem, Solution)
 from apps.models import UserMirror
@@ -19,7 +19,8 @@ from apps.models import UserMirror
 from apps.forms import (JoinForm, LoginForm, ProblemForm, SolutionForm)
 
 from flask.ext.login import login_required, login_user, logout_user, current_user
-from apps import login_manager
+
+
 
 #UPLOAD_FOLDER = './uploads/'
 #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -161,8 +162,10 @@ def main():
    
 
 
-##############################################################################################################
 
+##############################################################################################################
+# tag를 클릭 했을 때 나오는 problem list 조회 기능
+##############################################################################################################
 @app.route('/problem_list/<tag_id>/<prob_id>', methods=["GET", "POST"])
 @login_required
 def problem_list(tag_id, prob_id):
@@ -200,6 +203,7 @@ def problem_list(tag_id, prob_id):
 		tag.sort = s
 		db.session.commit()
 
+	problem_colors = []	
 	none_htag_list = [] # hash tag가 없는 문제를 담는다
 	dict_for_flist = {} # hash tag가 있는 문제를 담는다
 	if tag.sort != "":	
@@ -219,14 +223,30 @@ def problem_list(tag_id, prob_id):
 		# sort by hash tag
 		tproblems = []
 		s = ""	
+		c = 0
 		for key in htags:
 			tproblems += dict_for_flist[key]	
+			for t in dict_for_flist[key]:
+				if c%2 == 0:
+					problem_colors.append("warning")
+				else:
+					problem_colors.append("success")
+			c += 1
 		tproblems += none_htag_list
+		for t in none_htag_list:
+			if c%2 == 0:
+				problem_colors.append("warning")
+			else:
+				problem_colors.append("success")
 		
 		problems = tproblems
+	# 만약 해시태그가 하나도 없는 tag라면, problem_colors가 비어있음	
+
 	
 	# template에 전달해줘서 화면에 표시해 줄 것이다.
-	tags = tag.sort.split(',')	
+	tags = tag.sort.split(',')
+	if tags[0] == "":
+		tags = []	
 	
 	#################################################################
 
@@ -239,7 +259,7 @@ def problem_list(tag_id, prob_id):
 			solForm.populate_obj(solution)
 			db.session.commit()
 		# 예외로 prob_id 전달하기
-		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, sModal_open=True, prob_id=prob_id)   
+		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, sModal_open=True, prob_id=prob_id, problem_colors=problem_colors)   
 
 	# prob_id가 " "이면 이건 make_problem
 	if probForm.validate_on_submit():
@@ -289,9 +309,9 @@ def problem_list(tag_id, prob_id):
 		errors += probForm.title.errors +  probForm.content.errors + probForm.tag.errors + probForm.newtag.errors
 		for e in errors:
 			flash(e)
-		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True)   
+		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True, problem_colors=problem_colors)   
 	
-	return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm)   
+	return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, problem_colors=problem_colors)   
    
 
 
@@ -306,6 +326,49 @@ def get_problem(prob_id):
 	solution = problem.solution[0]
 	return jsonify(prob_id=prob_id, tag_id=tag.id, prob_title=problem.title, prob_content=problem.content, sol_content=solution.content)
 
+
+# for ajax
+@app.route("/delete_problem/<prob_id>")
+@login_required
+def delete_problem(prob_id):
+	problem = Problem.query.get(prob_id)
+	tag = problem.tag
+	
+	htag = None	
+	if "#" in problem.title and problem.title.count('#') >= 2:
+		htag = problem.title.split('#')[1] 
+	db.session.delete(problem)
+	db.session.commit()
+
+	#만약 마지막 태그라면.. tag의 sort_list 에서도 제외시켜야됨
+	will_be_deleted = True 
+	if htag != None:
+		for problem in tag.problems:
+			if "#" in problem.title and problem.title.count('#') >= 2:
+				chtag = problem.title.split('#')[1] 
+				if chtag == htag:
+					will_be_deleted = False
+					break
+	
+		# 이때 tag.sort가""일 수 없는게, htag가 None이 아니란 말이니까..					
+		if will_be_deleted:
+			sortlist = tag.sort.split(',')
+			sortlist.remove(htag)
+			tag.sort = ",".join(sortlist)
+			db.session.commit()
+	
+	# 만약 tag에 속한 문제가 없어지게 된다면 태그 자동 삭제
+	c = 0
+	for prob in tag.problems:
+		c += 1
+	if c == 0:
+		db.session.delete(tag)
+		db.session.commit()
+		return "tag_deleted"
+
+	return "success"
+
+
 #for ajax
 @app.route('/update_htags/<tag_id>')
 def update_htags(tag_id):
@@ -319,12 +382,51 @@ def update_htags(tag_id):
 
 
 ##############################################################################################################
+# 즐겨 찾기 기능
+##############################################################################################################
 @app.route('/favorite_list')
 @login_required
 def favorite_list():
-	return render_template('favorite_list.html')
+
+	textcolor = ['muted', 'primary', 'success', 'info', 'warning', 'danger']
+	random.shuffle(textcolor) 
+
+	user = User.query.get(g.user.id)
+
+	tag_ids = user.favlist.split(',') # 항상 주의 아무것도 없으면 ""이 첫 원소
+	tags = []
+	if tag_ids[0] != "":
+		for id in tag_ids:
+			tags.append(Tag.query.get(id))	
+
+	return render_template('favorite_list.html', tags=tags, textcolor=textcolor)
+
+# for jquery
+@app.route('/add_favorite/<tag_id>')
+@login_required
+def add_favorite(tag_id):
+	user = User.query.get(g.user.id)
+
+	if user.favlist == "":
+		user.favlist += tag_id
+	elif tag_id in user.favlist:
+		return "already"
+	else :
+		user.favlist += "," + tag_id
+	db.session.commit()
+
+	return "success" 
 
 
+@app.route('/delete_favorite/<tag_id>')
+@login_required
+def delete_favorite(tag_id):
+	user = User.query.get(g.user.id)
+	favlist = user.favlist.split(',')
+	favlist.remove(tag_id)
+	user.favlist = ",".join(favlist)
+	db.session.commit()
+	return "success"
 
 ##############################################################################################################
 # management function
@@ -351,6 +453,22 @@ def test():
 		tag.sort = ""
 	db.session.commit()
 	return "ok"
+
+
+##############################################################################################################
+# socket io 
+##############################################################################################################
+@socketio.on('my event', namespace='/test')
+def test_message(message):
+    emit('my response', {'data': message['data']})
+
+@socketio.on('my broadcast event', namespace='/test')
+def test_message(message):
+    emit('my response', {'data': message['data']}, broadcast=True)
+
+@socketio.on('connect', namespace='/test')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
 
 
 ##############################################################################################################

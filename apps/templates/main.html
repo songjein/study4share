@@ -14,40 +14,19 @@
 		}
 		
 		a[class*="tagd"]:hover{
-			background:#FFF612;
+			background:#FFF200;
 		}
 	</style>
 
 
 <div id="wrapper">
-	<a id="make_prob" href="#"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#541300"></span></a>
-	<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFBB00"></span></a>
+	<a id="make_prob" href="#"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#13499F"></span></a>
+	<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFCD12"></span></a>
 	<a id="help_me" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
-	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF612"></span></a>
+	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF200"></span></a>
 		{% for tag in tags %}
-			{% if loop.index0%7 == 0 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[0]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 1 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[1]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 2 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[2]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 3 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[3]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 4 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[4]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 5 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[5]}}" >{{tag.id}}</a>
-
-			{% elif loop.index0%7 == 6 %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[6]}}" >{{tag.id}}</a>
-
-			{% endif %}	
-	{% endfor %}
+				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[loop.index0%6]}}" >{{tag.id}}</a>
+		{% endfor %}
 	<br>
 </div>
 
@@ -101,12 +80,22 @@ $(function(){
 					$('#favorite_menu span').css('color', '#FF5E00');
 
 				}, deactivate: function(event, ui){
-					$('#favorite_menu span').css('color', '#FFF612');
+					$('#favorite_menu span').css('color', '#FFF200');
 
 				}, over: function(event, ui){
-					content = ui.draggable.text()
-					$('#fvModal .modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + content + '</span>' + "을 즐겨찾기에 추가!</h1></center>");
-					$('#fvModal').modal();
+					tag_id = ui.draggable.text()
+					$.ajax({
+						url: '/add_favorite/' + tag_id,
+						type: 'GET',
+						success: function(data){
+							if (data == "already")
+								$('#fvModal .modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + tag_id + '</span>' + "은 이미 즐겨찾기 등록된 태그입니다!</h1></center>");
+							else 
+								$('#fvModal .modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + tag_id + '</span>' + "을 즐겨찾기에 추가!</h1></center>");
+
+							$('#fvModal').modal();
+						}
+					})		
 
 				}, out: function(event, ui){
 					$('#favorite_menu span').css('color', '#FF5E00');
@@ -128,8 +117,7 @@ $(function(){
         
       </div>
       <div class="modal-footer bg-info">
-        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">추가</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
       </div>
     </div>
   </div>

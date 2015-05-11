@@ -40,16 +40,15 @@
 
 <div class="col-md-8 col-md-offset-2">
    	 <div id="list_content" class="list-group text-center">
-			<div  class="list-group-item list-group-item-danger">
-				
+			<div  class="list-group-item list-group-item-danger" >
 				<strong>Problem lists of </strong>
 				<a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}">
-					<span class="text-primary" >&nbsp;#{{tag.id}}</span>
+					<span class="text-primary" style="font-weight:normal" >&nbsp;#{{tag.id}}</span>
 				</a><br>
 				<strong>/Double_hash_tags/</strong>
 				<!-- hash tag list -->
 				<div id="sortable">
-					{% if tags[0]!=""%}
+					{% if tags|length != 0%}
 						{% for tag in tags %}
 						<a href="#" class="list_tag">&nbsp;{{tag}}&nbsp;</a>
 						{% endfor %}
@@ -63,11 +62,11 @@
 				<a id="make_prob" href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
 			</div>
 			{% for problem in problems %}
-			{% if loop.index0%2 == 0 %}
-			<a href="#" class="prob list-group-item list-group-item-warning" value="{{problem.id}}">{{problem.title}}</a>
-			{% elif loop.index0%2 == 1%}
-			<a href="#" class="prob list-group-item list-group-item-success" value="{{problem.id}}">{{problem.title}}</a>
-			{% endif %}
+				{% if problem_colors|length != 0%}
+				<a href="#" class="prob list-group-item list-group-item-{{problem_colors[loop.index0]}}" value="{{problem.id}}">{{problem.title}}</a>
+				{% else %}
+				<a href="#" class="prob list-group-item list-group-item-warning" value="{{problem.id}}">{{problem.title}}</a>
+				{% endif %}
 			{% endfor %}
 		</div>
   	</div>
@@ -75,6 +74,8 @@
 
 <script>
 	sol_content = "None"
+	prob_id = ""
+
 	$(function(){
 		// sModal_open이 정의되있으면 prob_id도 정의되있음.	
 		{% if sModal_open %}
@@ -131,6 +132,7 @@
 				dataType: "JSON",
 				success: function(data){
 					sol_content = data.sol_content
+					prob_id = data.prob_id
 					$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
 					$('#problem_content').html(data.prob_content)
 					$('#problem_title').html(data.prob_title)
@@ -141,6 +143,22 @@
 			})
 			return false
 		})	
+
+
+		$('#prob_del_btn').click(function(){
+			$.get('/delete_problem/'+ prob_id,{
+				// empty		
+			}, function(data) {
+				// 바꿔주기
+				if (data == "tag_deleted")
+					window.location.href="/main"
+				else
+					window.location.reload()
+				
+			})
+		})
+
+
 
 		//$(window).scroll(function() {
  		//	if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -153,6 +171,8 @@
 				$('#list_content').append()
    			}
 		});
+
+
 	})
 </script>
 
@@ -166,7 +186,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="ctModalLabel">
 		<!-- ajax로 problem_title 채워줌-->
-		<strong><span class="menu_icon glyphicon glyphicon-star" style="color:red"></span>{{tag.id}}#<span id="problem_title"></span></strong>
+		<span class="menu_icon glyphicon glyphicon-star" style="color:red"></span>{{tag.id}}#<span id="problem_title"></span>
 	</h4>
       </div>
       <div class="modal-body">	
@@ -185,7 +205,7 @@
 		</div>
       </div>
       <div class="modal-footer  bg-success">
-        <button type="button" class="btn btn-danger" >문제 삭제</button>
+        <button type="button" id="prob_del_btn" class="btn btn-danger" >문제 삭제</button>
         <button type="button" class="btn btn-warning" >문제 수정</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">나가기</button>
       </div>
@@ -215,7 +235,7 @@ $(function(){
     <div class="modal-content">
       <div class="modal-header bg-success">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="mpModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><strong>글쓰기#{{tag.id}}</strong></h4>
+        <h4 class="modal-title" id="mpModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>글쓰기#{{tag.id}}</h4>
       </div>
       <div class="modal-body">
 	{% for message in get_flashed_messages() %}

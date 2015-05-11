@@ -9,6 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 from flask.ext.login import LoginManager
+from flask.ext.socketio import SocketIO, emit 
 
 app = Flask(__name__)
 app.config.from_object('apps.settings.Production')
@@ -20,6 +21,12 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.session_protection = 'strong'
 login_manager.login_message = u'로그인이 필요합니다.'
+##############################################################################################################
+
+
+# socket init
+##############################################################################################################
+socketio = SocketIO(app)
 ##############################################################################################################
 
 

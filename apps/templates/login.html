@@ -6,10 +6,8 @@
     <title>Study4Share</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
-
-        <!-- <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'> -->
-        <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
-        <!-- <link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'> -->
+	<link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet" type="text/css"> 
+	<link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>	
     <style type="text/css">
         /**
  * parallax.css
@@ -20,7 +18,8 @@
     
     body {
         background-color: #444;
-        background: url(http://study4share.xyz/static/img/studyhard2.png);
+	font-family:'Hanna', serif;
+        background: url(http://study4share.xyz/static/img/back.png);
     }
     .form-signin input[type="text"] {
         margin-bottom: 5px;
@@ -61,25 +60,25 @@
     }
 
                 #title {
-                        font-size:2.9em;
+                        font-size:4.5em;
                         color:black;
                         text-decoration: none;
 
                         /*text-shadow : left top blur color*/
-                        text-shadow: 3px 3px 20px green;
-                        -o-text-shadow: 3px 3px 20px green;
-                        -moz-text-shadow: 3px 3px 20px green;
-                        -webkit-text-shadow: 3px 3px 20px green;
-                        filter:dropshadow(color=green, offX=1, offY=1);zoom:1;
+			text-shadow: 3px 3px 13px darkgray;
+  			-o-text-shadow: 3px 3px 13px darkgray;
+  			-moz-text-shadow: 3px 3px 13px darkgray;
+  			-webkit-text-shadow: 3px 3px 13px darkgray;
+			filter:dropshadow(color=darkgray, offX=1, offY=1);zoom:1;
+			font-family: 'Bangers', serif;
 
                         padding: 0% 3%;
-                        /*font-family: 'Bangers', cursive;*/
-                        font-family: 'Rock Salt', cursive;
-                        /*font-family: 'Press Start 2P', cursive;*/
                 }
-             
+		@media screen and (max-width:1200px){
+                        #title{font-size:3.5em; }
+ 		} 
                 @media screen and (max-width:480px){
-                        #title{font-size:2em; }
+                        #title{font-size:3em; }
                 }
         </style>
 
@@ -102,10 +101,10 @@
         <div class="row vertical-offset-100">
             <div class="col-md-4 col-md-offset-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading" >                                
+                    <div class="panel-heading" style="background:rgba(255,255,255, 0.6); ">                                
                         <div class="row-fluid user-row">
                             <center>
-                                    <a href="#" id="title" class="text-center">Study<span style="color:red">4</span>Share</a>
+		<a href="#" id="title" class="text-center"><span style="color:#EF4035">Study</span><span style="color:#FFF200">4</span><span style="color:#13499F">Share</span></a>
                             </center>
                         </div>
                     </div>
@@ -144,7 +143,7 @@
     <div class="modal-content">
       <div class="modal-header bg-success">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><strong>회원 가입 해주시죠</strong></h4>
+        <h4 class="modal-title" id="myModalLabel">회원 가입 해주시죠</h4>
       </div>
       <div class="modal-body">	
 	{% from "_form_field_register.html" import render_field %}

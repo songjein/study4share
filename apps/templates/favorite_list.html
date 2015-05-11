@@ -1,29 +1,91 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<style>
+		#wrapper {
+			text-align:justify; /* for main.html */
+		}
+		#wrapper .menu_icon{
+			font-size:2em;
+		}
+		#wrapper a{white-space : nowrap; /* for main.html */}
+		@media screen and (max-width:480px){
+			#wrapper .menu_icon {font-size:2.1em;} /*for main.html*/
+		}
+		
+		a[class*="tagd"]:hover{
+			background:#FFF612;
+		}
+		.tagd{
+			font-weight:normal;
+		}
+	</style>
 
-		<div class="panel panel-default">
+	<div class="panel panel-default" style="background:rgba(255,255,255,0.3)">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><strong>Favorite tags ~&nbsp;<span class="glyphicon glyphicon-tags"></span></h3>
 		  </div>
-		  <div id="wrapper"  class="panel-body">
-			<a href="#" class="text-muted" >,김수안</a>
-			<a href="#" class="text-primary" >,김지윤</a>
-			<a href="#" class="text-success" >,코코징</a>
-			<a href="#" class="text-info" >,소리씨나에게와요</a>
-			<a href="#" class="text-warning" >,cyblack</a>
-			<a href="#" class="text-danger" >,신원식</a>
+		  <div id="wrapper"  class="panel-body" >
+			<a href="#" class="menu_icon" id="trash_menu" style="color:#FFF612" ><span class="glyphicon glyphicon-trash"></span></a>
+			{% if tags|length == 0 %}
+				즐겨 찾기 추가된 태그가 없습니다^^
+			{% else %}
+				{% for tag in tags %}
+					<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[loop.index0%6]}}" >{{tag.id}}</a>
+				{% endfor %}
+			{% endif %}
 		  </div>
 		</div>
-		
-		
 
-		<span class="label label-default">Default</span>
-		<span class="label label-primary">Primary</span>
-		<span class="label label-success">Success</span>
-		<span class="label label-info">Info</span>
-		<span class="label label-warning">Warning</span>
-		<span class="label label-danger">Danger</span>
 	</div>
 
+	<script>
+		$(function() {
+			$( ".tagd" ).draggable({revert:true, helper:"clone"});
+			$( "#trash_menu" ).droppable({
+				drop: function( event, ui ) {
+
+		  		}, activate: function(event, ui){
+					$('#trash_menu span').css('color', '#FF5E00');
+
+				}, deactivate: function(event, ui){
+					$('#trash_menu span').css('color', '#FFF612');
+
+				}, over: function(event, ui){
+					tag_id = ui.draggable.text()
+					$.ajax({
+						url: '/delete_favorite/' + tag_id,
+						type: 'GET',
+						success: function(data){
+							$('#rmModal .modal-body').html('<center><h1><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span><span style="color:red">' + tag_id + '</span>' + "을 즐겨찾기에서 삭제!</h1></center>");
+
+							$('#rmModal').modal();
+							$('#ok').click(function(){
+								window.location.reload()
+							})
+						}
+					})		
+
+				}, out: function(event, ui){
+					$('#trash_menu span').css('color', '#FF5E00');
+				}
+			});
+		});
+	</script>
+<div class="modal fade" id="rmModal" tabindex="-1" role="dialog" aria-labelledby="rmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="rmModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>즐겨찾기 삭제</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer bg-info">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="ok">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

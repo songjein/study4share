@@ -18,7 +18,6 @@ class Production(Config):
     debug = True
     CSRF_ENABLED = False
     ADMIN = "jeinsong200@gmail.com"
-    
 
     SQLALCHEMY_DATABASE_URI = 'mysql://root:111111@localhost/study'
     
