@@ -40,7 +40,7 @@
 
 <div class="col-md-8 col-md-offset-2">
    	 <div id="list_content" class="list-group text-center">
-			<div  class="list-group-item list-group-item-danger" >
+			<div id="topmenu" class="list-group-item list-group-item-danger" >
 				<strong>Problem lists of </strong>
 				<a id="list_title"  href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}">
 					<span class="text-primary" style="font-weight:normal" >&nbsp;#{{tag.id}}</span>
@@ -120,30 +120,56 @@
 				})
 			}
 		})
-	
-		$('.prob').click(function(){
+		
+		$('.list_tag').click(function(){
 			$.ajax({
-				url: '/get_problem/' + $(this).attr("value"),
-				type: 'GET',
-				//data: {
-				//name: 'test',
-				//region: 'test'
-				//},
+				url: '/problems_of',
+				type: 'POST',
+				data: {
+					htag: $.trim($(this).text()),
+					tag_id: "{{tag.id}}"
+				},
 				dataType: "JSON",
 				success: function(data){
-					sol_content = data.sol_content
-					prob_id = data.prob_id
-					$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
-					$('#problem_content').html(data.prob_content)
-					$('#problem_title').html(data.prob_title)
-					$('#solution_content').html(data.sol_content)
-					$('#ctModal').modal()
-				}		
-
+					$('.prob').each(function(index, item){
+					// ($('.prob').eq(index).remove() 
+						$('.prob').first().remove()
+					})
+					$.each(data, function(index, item){
+						$('<a href="#" class="prob list-group-item list-group-item-warning" value="'
+							+ data[index][0] +'">'+ data[index][1] + '</a>').insertAfter('#topmenu')
+					})
+					makeClickable()
+				}
 			})
-			return false
-		})	
-
+		})
+	
+		function makeClickable(){
+			$('.prob').click(function(){
+				$.ajax({
+					url: '/get_problem/' + $(this).attr("value"),
+					type: 'GET',
+					//data: {
+					//name: 'test',
+					//region: 'test'
+					//},
+					dataType: "JSON",
+					success: function(data){
+						sol_content = data.sol_content
+						prob_id = data.prob_id
+						$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
+						$('#problem_content').html(data.prob_content)
+						$('#problem_title').html(data.prob_title)
+						$('#solution_content').html(data.sol_content)
+						$('#ctModal').modal()
+					}		
+	
+				})
+				return false
+			})	
+		}
+		
+		makeClickable()
 
 		$('#prob_del_btn').click(function(){
 			$.get('/delete_problem/'+ prob_id,{

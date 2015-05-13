@@ -70,9 +70,11 @@ class User(UserMixin, db.Model):
         return '<User %r>' % (self.name)
 
 
-
-
-
+class Schedule(db.Model):
+    id = db.Column(db.String(255), primary_key=True)   
+    check_list = db.Column(db.Text(), default="")
+    time = db.Column(db.String(255), default="")   
+    group = db.Column(db.String(255), default="")   
 
 
 class UserMirror(db.Model):

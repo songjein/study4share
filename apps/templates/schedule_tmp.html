@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+	th{text-align:center;}
+</style>
+<center><h5>참고로 임시로 넣어논 기능입니다. </h5></center>
+<center><h5>원래 종이 비행기의 기능이 아니랍니다 ㅎㅎ. </h5></center>
+<center><h1 class="text-danger">안되는 시간을 클릭해주세요^^ </h1></center>
+<center><h1 class="text-info">취소는 우클릭입니다^^ </h1></center>
+
+<div class="col-md-8 col-md-offset-2 table-responsive">
+	<table class="table table-bordered" >
+		<tr>
+			<th>수업시간</th>
+			<th>월</th>
+			<th>화</th>
+			<th>수</th>
+			<th>목</th>
+			<th>금</th>
+		</tr>
+		<tr>
+			<th>1교시</th>
+			<td class="clickable" data-index="0"></td>
+			<td class="clickable" data-index="1"></td>
+			<td class="clickable" data-index="2"></td>
+			<td class="clickable" data-index="3"></td>
+			<td class="clickable" data-index="4"></td>
+		</tr>	
+		<tr>
+			<th>2교시</th>
+			<td class="clickable" data-index="5"></td>
+			<td class="clickable" data-index="6"></td>
+			<td class="clickable" data-index="7"></td>
+			<td class="clickable" data-index="8"></td>
+			<td class="clickable" data-index="9"></td>
+		</tr>	
+		<tr>
+			<th>3교시</th>
+			<td class="clickable" data-index="10"></td>
+			<td class="clickable" data-index="11"></td>
+			<td class="clickable" data-index="12"></td>
+			<td class="clickable" data-index="13"></td>
+			<td class="clickable" data-index="14"></td>
+		</tr>	
+		<tr>
+			<th>4교시</th>
+			<td class="clickable" data-index="15"></td>
+			<td class="clickable" data-index="16"></td>
+			<td class="clickable" data-index="17"></td>
+			<td class="clickable" data-index="18"></td>
+			<td class="clickable" data-index="19"></td>
+		</tr>	
+		<tr>
+			<th>5교시</th>
+			<td class="clickable" data-index="20"></td>
+			<td class="clickable" data-index="21"></td>
+			<td class="clickable" data-index="22"></td>
+			<td class="clickable" data-index="23"></td>
+			<td class="clickable" data-index="24"></td>
+		</tr>	
+		<tr>
+			<th>6교시</th>
+			<td class="clickable" data-index="25"></td>
+			<td class="clickable" data-index="26"></td>
+			<td class="clickable" data-index="27"></td>
+			<td class="clickable" data-index="28"></td>
+			<td class="clickable" data-index="29"></td>
+		</tr>	
+		<tr>
+			<th>7교시</th>
+			<td class="clickable" data-index="30"></td>
+			<td class="clickable" data-index="31"></td>
+			<td class="clickable" data-index="32"></td>
+			<td class="clickable" data-index="33"></td>
+			<td class="clickable" data-index="34"></td>
+		</tr>	
+		<tr>
+			<th>8교시</th>
+			<td class="clickable" data-index="35"></td>
+			<td class="clickable" data-index="36"></td>
+			<td class="clickable" data-index="37"></td>
+			<td class="clickable" data-index="38"></td>
+			<td class="clickable" data-index="39"></td>
+		</tr>	
+		<tr>
+			<th>9교시</th>
+			<td class="clickable" data-index="40"></td>
+			<td class="clickable" data-index="41"></td>
+			<td class="clickable" data-index="42"></td>
+			<td class="clickable" data-index="43"></td>
+			<td class="clickable" data-index="44"></td>
+		</tr>	
+		<tr>
+			<th>10교시</th>
+			<td class="clickable" data-index="45"></td>
+			<td class="clickable" data-index="46"></td>
+			<td class="clickable" data-index="47"></td>
+			<td class="clickable" data-index="48"></td>
+			<td class="clickable" data-index="49"></td>
+		</tr>	
+		<tr>
+			<th>11교시</th>
+			<td class="clickable" data-index="50"></td>
+			<td class="clickable" data-index="51"></td>
+			<td class="clickable" data-index="52"></td>
+			<td class="clickable" data-index="53"></td>
+			<td class="clickable" data-index="54"></td>
+		</tr>	
+		<tr>
+			<th>12교시</th>
+			<td class="clickable" data-index="55"></td>
+			<td class="clickable" data-index="56"></td>
+			<td class="clickable" data-index="57"></td>
+			<td class="clickable" data-index="58"></td>
+			<td class="clickable" data-index="59"></td>
+		</tr>	
+		<tr>
+			<th>13교시</th>
+			<td class="clickable" data-index="60"></td>
+			<td class="clickable" data-index="61"></td>
+			<td class="clickable" data-index="62"></td>
+			<td class="clickable" data-index="63"></td>
+			<td class="clickable" data-index="64"></td>
+		</tr>	
+		<tr>
+			<th>14교시</th>
+			<td class="clickable" data-index="65"></td>
+			<td class="clickable" data-index="66"></td>
+			<td class="clickable" data-index="67"></td>
+			<td class="clickable" data-index="68"></td>
+			<td class="clickable" data-index="69"></td>
+		</tr>	
+	</table>
+</div>
+<script>
+	sol_content = "None"
+	prob_id = ""
+
+	$(function(){
+		$('.clickable').click(function(){
+			//$(this).addClass('danger')	
+			$.ajax({
+				url: '/schedule',
+				type: 'POST',
+				data: {
+					num: $(this).attr('data-index')	
+				},
+				success: function(data){
+					window.location.href="/schedule"
+				}
+			})
+		})
+
+	})
+</script>
+
+{% endblock %}

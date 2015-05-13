@@ -22,7 +22,7 @@
 <div id="wrapper">
 	<a id="make_prob" href="#"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#13499F"></span></a>
 	<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFCD12"></span></a>
-	<a id="help_me" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
+	<a id="help_me" href="{{url_for('schedule')}}"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
 	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF200"></span></a>
 		{% for tag in tags %}
 				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[loop.index0%6]}}" >{{tag.id}}</a>

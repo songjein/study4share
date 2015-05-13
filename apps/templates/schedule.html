@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+	th{font-weight:normal;text-align:center; font-size: 1.5em; vertical-align:middle}
+	.helptext{
+		font-size: 2.2em;			
+	}
+
+	@media screen and (max-width:480px){
+		th {font-size: 1em;}
+		.helptext{
+			font-size: 1.5em;
+		}	
+	}
+</style>
+<center><h5>참고로 임시로 넣어논 기능입니다. 원래 종이 비행기의 기능이 아니랍니다 ㅎㅎ. </h5></center>
+<center><div class="text-success helptext"><span style="color:#FFF200">{{modified_time}}</span>시에 <span id="who" style="color:red">{{group_name}}</span> 그룹이 사용</div></center>
+<center><div class="text-danger helptext">안되는 시간을 클릭해주세요^^ </div></center>
+<center><div class="text-info helptext">취소는<a href="#" id="erase"> <span style="color:orange;" class="glyphicon glyphicon-remove"></span></a> 누른 후 클릭입니다! </div></center>
+
+<div class="col-md-8 col-md-offset-2 table-responsive">
+	<table class="table table-bordered" >
+		<tr>
+			<!--<th class="init">수업시간<br/>(<a href="{{url_for('init_sche')}}"><span style="color:red">클릭</span></a>시 초기화)</th>-->
+			<th class="init">수업시간<br/>(<a href="#"><span style="color:red">클릭</span></a>시 초기화)</th>
+			<th>월</th>
+			<th>화</th>
+			<th>수</th>
+			<th>목</th>
+			<th>금</th>
+		</tr>
+		{% for label in labels %} 
+		<tr>
+			<th>{{label|safe}}</th>
+			<td class="clickable {% if check_dict[(loop.index0 * 5 + 0)|string()] %} danger {% endif %}" data-index="{{loop.index0 * 5 + 0}}"></td>
+			<td class="clickable {% if check_dict[(loop.index0 * 5 + 1)|string()] %} danger {% endif %}" data-index="{{loop.index0 * 5 + 1}}"></td>
+			<td class="clickable {% if check_dict[(loop.index0 * 5 + 2)|string()] %} danger {% endif %}" data-index="{{loop.index0 * 5 + 2}}"></td>
+			<td class="clickable {% if check_dict[(loop.index0 * 5 + 3)|string()] %} danger {% endif %}" data-index="{{loop.index0 * 5 + 3}}"></td>
+			<td class="clickable {% if check_dict[(loop.index0 * 5 + 4)|string()] %} danger {% endif %}" data-index="{{loop.index0 * 5 + 4}}"></td>
+		</tr>	
+		{% endfor %}
+	</table>
+</div>
+<script>
+	erase = false;
+	$(function(){
+		var currentdate = new Date(); 
+		$('.clickable').click(function(event){
+			var modified_time =  (currentdate.getMonth()+1)  + "월" 
+				+ currentdate.getDate() + "일 "
+       		       		+ currentdate.getHours() + ":"  
+                		+ currentdate.getMinutes() 
+			if (!erase){
+				$.ajax({
+					url: '/schedule',
+					type: 'POST',
+					data: {
+						check_num: $(this).attr('data-index'),
+						modified_time: modified_time
+					},
+					success: function(data){
+						window.location.href="/schedule"
+					}
+				})
+			}
+			else {	
+				$.ajax({
+					url: '/del_check_list_item',
+					type: 'POST',
+					data: {
+						check_num: $(this).attr('data-index'),
+						modified_time: modified_time
+					},
+					success: function(data){
+						window.location.href="/schedule"
+					}
+				})
+				erase = false;
+			}	
+		})
+		$('#erase').click(function(){
+			erase = true
+		})
+
+	})
+</script>
+
+{% endblock %}

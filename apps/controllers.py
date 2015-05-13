@@ -13,7 +13,7 @@ from sqlalchemy import desc
 
 from apps import app, db, login_manager, socketio
 
-from apps.models import (User, Tag, Problem, Solution)
+from apps.models import (User, Tag, Problem, Solution, Schedule)
 from apps.models import UserMirror
 
 from apps.forms import (JoinForm, LoginForm, ProblemForm, SolutionForm)
@@ -314,7 +314,24 @@ def problem_list(tag_id, prob_id):
 	return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, problem_colors=problem_colors)   
    
 
-
+# for ajax
+@app.route('/problems_of', methods=['POST'])
+@login_required
+def problems_of():
+	htag = request.form['htag']
+	tag_id = request.form['tag_id']
+	
+	tag = Tag.query.get(tag_id)
+	problems = tag.problems
+	
+	result = []	
+	for prob in problems:
+		if "#" in prob.title and prob.title.count('#') >= 2:
+			key = prob.title.split('#')[1] 
+			if key == htag :
+				result.append([str(prob.id), prob.title])	
+	
+	return json.dumps(result) 
 
 # for ajax
 @app.route("/get_problem/<prob_id>")
@@ -510,10 +527,71 @@ def uploaded_file(filename):
 
 
 
+##############################################################################################################
+# schedule module
+##############################################################################################################
+@app.route('/init_sche')
+def init_sche():
+	if Schedule.query.get("study4share"):
+		sche = Schedule.query.get('study4share') 
+		sche.check_list = ""
+		db.session.commit()
+		return redirect(url_for('schedule'))
+			
+	else : # for ajax
+		sche = Schedule(id="study4share")
+		db.session.add(sche)
+		db.session.commit()
+	return "success"	
 
+@app.route('/schedule', methods=['GET', 'POST'])
+def schedule():
+	sche = Schedule.query.get('study4share')
+	check_list = []
+	if sche.check_list != "":
+		check_list = sche.check_list.split(',')
 
+	labels = [u'1교시<br/>(09:00~09:50)', u'2교시<br/>(10:00~10:50)', u'3교시<br/>(11:00~11:50)', u'4교시<br/>(12:00~12:50)', u'5교시<br/>(13:00~13:50)', \
+		 u'6교시<br/>(14:00~14:50)', u'7교시<br/>(15:00~15:50)', u'8교시<br/>(16:00~16:50)', u'9교시<br/>(17:30~18:20)', u'10교시<br/>(18:25~19:15)', \
+		 u'11교시<br/>(19:20~20:10)', u'12교시<br/>(20:15~21:05)', u'13교시<br/>(21:10~22:00)', u'14교시<br/>(22:05~22:55)']
+	
+	# ajax	
+	modified_time=""
+	if request.method == 'POST':
+		check_num = request.form['check_num']
+		modified_time = request.form['modified_time']
+		if check_num not in check_list:
+			check_list.append(check_num)
+			sche.check_list = ",".join(check_list)
+			sche.time = modified_time 
+			sche.group="기경"
+			db.session.commit()
+		return "success"
+	modified_time = sche.time
+	group_name = sche.group
 
+	check_dict = {}	
+	for item in check_list:
+		check_dict[item] = True	
+		
+	return render_template('schedule.html', labels=labels, check_dict=check_dict, modified_time=modified_time, group_name=group_name)
 
+@app.route('/del_check_list_item', methods=['POST'])
+def del_check_list_item():
+	sche = Schedule.query.get('study4share')
+	check_list = []
+	if sche.check_list != "":
+		check_list = sche.check_list.split(',')
+	
+	check_num = request.form['check_num']
+	modified_time = request.form['modified_time']
+	if check_num in check_list:
+		check_list.remove(check_num)
+		sche.check_list = ",".join(check_list)
+		sche.time = modified_time 
+		db.session.commit()
+		
+	return "success"			
 
 ##############################################################################################################
 # 지윤이네꺼!
