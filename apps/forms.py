@@ -12,13 +12,13 @@ from wtforms import validators
 class ProblemForm(Form):
 	title = StringField("Problem",
 			[validators.data_required(u"문제의 요지를 입력해주세요~!"),
-			validators.Length(min=1, max=20, message=u"제목은 최대 20글자 입니다 ^^")
+			validators.Length(min=1, max=35, message=u"제목은 최대 35글자 입니다 ^^")
 			])
 	# summernote는 비었을 때 <p><br></p>를 포함함, 데이터 리콰이어  벨리데잇 불가
 	content = TextAreaField("내용")
 	# jquery로 hidden field value를 꼭 채워주자. newtag를 선택해도 여기를 채워주자
-	tag = HiddenField("Tag list", [validators.data_required(u"기존의 태그를 선택하거나, 새로 만들어 주세요^^")])
- 	newtag = StringField("New tag", [validators.Length(max=11, message=u"태그는 최대 11글자 입니다 ^^")])
+	tag = HiddenField("Tag list", [validators.data_required(u"기존의 태그를 선택하거나, 새로 만들어 주세요^^"),])
+ 	newtag = StringField("New tag", [validators.Length(max=12, message=u"태그는 최대 12글자 입니다 ^^")])
 	file = FileField("Upload file")
 
 class SolutionForm(Form):

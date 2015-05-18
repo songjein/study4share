@@ -111,8 +111,13 @@ def main():
 
 	if form.validate_on_submit():
 		tag =  Tag.query.get(form.tag.data)
+		# 새로운 태그라면?
 		if tag is None:
 			tag = Tag(id=form.tag.data.strip())
+			# regexp에 관해서 validator가 잘 안되서 이런식으로 에러처리를 했다.
+			if u"?" in tag.id or u"&" in tag.id:
+				flash(u"?또는&를 태그에 포함할 수 없습니다!")
+				return render_template('main.html', form=form, tags=tags, mpmodal_open=True, textcolor=textcolor)
 			db.session.add(tag)
 			db.session.commit()
 		
@@ -530,18 +535,17 @@ def uploaded_file(filename):
 ##############################################################################################################
 # schedule module
 ##############################################################################################################
+# for ajax
 @app.route('/init_sche')
 def init_sche():
 	if Schedule.query.get("study4share"):
 		sche = Schedule.query.get('study4share') 
 		sche.check_list = ""
+		sche.group = request.args['group_name']
+		sche.time = request.args['modified_time']
 		db.session.commit()
 		return redirect(url_for('schedule'))
 			
-	else : # for ajax
-		sche = Schedule(id="study4share")
-		db.session.add(sche)
-		db.session.commit()
 	return "success"	
 
 @app.route('/schedule', methods=['GET', 'POST'])

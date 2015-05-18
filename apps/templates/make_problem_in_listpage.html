@@ -11,7 +11,8 @@
 	 {{ probForm.hidden_tag() }}
 	  <div class="form-group">
 	    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{probForm.title.label}}</label>
-	     	{{probForm.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="문제가 뭐요?")}}
+	    <span style="color:gray">제목 맨앞에 #더블해시태그# 를 입력해 정렬이 가능합니다(옵션)</span>
+	     	{{probForm.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="#태그# 제목을 입력해주세요")}}
 	  </div>
 	  {{probForm.content(id="prob_summernote")}}
 
@@ -32,7 +33,7 @@
 	</form>
  	<br>
         <button data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12">안써! -_=</button>
-
+	<br>
 <script>
   $(document).ready(function() {
 	$("#prob_submitbtn").click(function(){

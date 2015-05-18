@@ -6,18 +6,8 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
 	
-	<!--플래시 메시지 띄워주기 여기 에-->
-	<form id="sol_form" action="#"  method="POST"  role="form">
-	 {{ solForm.hidden_tag() }}
-	 {{ solForm.content(id="sol_summernote")}}
-	 <br>
-         <button id="sol_submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">해결책 쓰기/수정</button>
-         <br>
-	</form>
-			
  
 <script>
-
 function createNote(){
     $('#sol_summernote').summernote({
      height: 150,                 // set editor height
@@ -42,9 +32,9 @@ function createNote(){
    });
 }
 
-
 // 이럴바엔 그냥 폼을 만들지 말걸 solution에 대한 폼은 ... 허허
 open = false;
+
   $(document).ready(function() {
 	$('#sol_summernote').hide()
 
@@ -54,15 +44,19 @@ open = false;
 			createNote();
 			$('.note-editable').html(sol_content)
 			open = true;
+
+			$('#solution_content').html("")
+
 			return false;
 		} else {
-			$('#sol_summernote').destroy()
-			$('#sol_summernote').hide()
-			open = false;
+			//$('#sol_summernote').destroy()
+			//$('#sol_summernote').hide()
+			// open = false;
 			return true;
 			
 		}
 		//return false;
+
 	})	
   });
 </script>

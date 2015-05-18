@@ -13,7 +13,7 @@
 		}	
 	}
 </style>
-<center><h5>참고로 임시로 넣어논 기능입니다. 원래 종이 비행기의 기능이 아니랍니다 ㅎㅎ. </h5></center>
+<center><h5>겹치지 않는 시간 찾을때 활용하시오. 누가 쓰고 있다면 적당히 알아서..(<span style="color:red">사이좋게</span>)</h5></center>
 <center><div class="text-success helptext"><span style="color:#FFF200">{{modified_time}}</span>시에 <span id="who" style="color:red">{{group_name}}</span> 그룹이 사용</div></center>
 <center><div class="text-danger helptext">안되는 시간을 클릭해주세요^^ </div></center>
 <center><div class="text-info helptext">취소는<a href="#" id="erase"> <span style="color:orange;" class="glyphicon glyphicon-remove"></span></a> 누른 후 클릭입니다! </div></center>
@@ -21,13 +21,12 @@
 <div class="col-md-8 col-md-offset-2 table-responsive">
 	<table class="table table-bordered" >
 		<tr>
-			<!--<th class="init">수업시간<br/>(<a href="{{url_for('init_sche')}}"><span style="color:red">클릭</span></a>시 초기화)</th>-->
-			<th class="init">수업시간<br/>(<a href="#"><span style="color:red">클릭</span></a>시 초기화)</th>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
+			<th>수업시간<br/>(<a href="#" id="chgroup"><span style="color:red">그룹변경</span></a>)</th>
+			<th><br>월</th>
+			<th><br>화</th>
+			<th><br>수</th>
+			<th><br>목</th>
+			<th><br>금</th>
 		</tr>
 		{% for label in labels %} 
 		<tr>
@@ -84,5 +83,51 @@
 
 	})
 </script>
+
+
+<script>
+	$(function(){
+		$('#chgroup').click(function(){
+			$('#chgModal').modal(
+				{backdrop:'static', keyboard:false}	
+			)
+		})
+	})
+</script>
+<!--Modal -->
+<div class="modal fade" id="chgModal" tabindex="-1" role="dialog" aria-labelledby="chgModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="chgModalLabel"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFE400"></span>그룹명 변경!!</h4>
+      </div>
+      <div class="modal-body">
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+	
+	<!--플래시 메시지 띄워주기 여기 에-->
+	<form action="{{url_for('init_sche')}}" method="GET"  role="form">
+	  <div class="form-group">
+	    <label for="quest"  style="color:#FFC708; font-weight:normal;font-size:3em;">그룹명을 입력하세요!</label>
+	    <span style="color:gray">시간표가 초기화 됩니다!</span>
+	    <input type="text" class="form-control" placeholder="지금 누가 쓰고있다면 잠시 미뤄주세요!" name="group_name">
+		<input type="hidden" name="modified_time" id="hidden_tag" value="xxxx">
+	  </div>
+          <button id="submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">그룹명 변경!</button>
+          <br>
+	</form>
+ 	<br>
+        <button data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12">취소</button>
+	<br>
+
+<!---------------------------------------------------------------------------------------------------------------------------------------->        
+      <br> 
+      </div>
+      <div class="modal-footer bg-success">
+		&nbsp;
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

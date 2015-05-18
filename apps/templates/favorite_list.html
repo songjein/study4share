@@ -3,7 +3,7 @@
 {% block content %}
 	<style>
 		#wrapper {
-			text-align:justify; /* for main.html */
+			text-align:center; /* for main.html */
 		}
 		#wrapper .menu_icon{
 			font-size:2em;
@@ -20,13 +20,9 @@
 			font-weight:normal;
 		}
 	</style>
-
-	<div class="panel panel-default" style="background:rgba(255,255,255,0.3)">
-		  <div class="panel-heading">
-		    <h3 class="panel-title"><strong>Favorite tags ~&nbsp;<span class="glyphicon glyphicon-tags"></span></h3>
-		  </div>
 		  <div id="wrapper"  class="panel-body" >
 			<a href="#" class="menu_icon" id="trash_menu" style="color:#FFF612" ><span class="glyphicon glyphicon-trash"></span></a>
+			<br>
 			{% if tags|length == 0 %}
 				즐겨 찾기 추가된 태그가 없습니다^^
 			{% else %}
@@ -37,7 +33,6 @@
 		  </div>
 		</div>
 
-	</div>
 
 	<script>
 		$(function() {

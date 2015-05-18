@@ -3,14 +3,15 @@
 
 	<style>
 		#wrapper {
-			text-align:justify; /* for main.html */
+			text-align:center; /* for main.html */
 		}
 		#wrapper .menu_icon{
 			font-size:2em;
+			padding: 0 2%;
 		}
 		#wrapper a{white-space : nowrap; /* for main.html */}
 		@media screen and (max-width:480px){
-			#wrapper .menu_icon {font-size:2.1em;} /*for main.html*/
+			#wrapper .menu_icon {font-size:2.1em; padding: 0 0;} /*for main.html*/
 		}
 		
 		a[class*="tagd"]:hover{
@@ -22,11 +23,13 @@
 <div id="wrapper">
 	<a id="make_prob" href="#"><span class="menu_icon glyphicon glyphicon-pencil" style="color:#13499F"></span></a>
 	<a id="chat_memo" href="#"><span class="menu_icon glyphicon glyphicon-comment" style="color:#FFCD12"></span></a>
-	<a id="help_me" href="{{url_for('schedule')}}"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>
+	<!--<a id="" href="#"><span class="menu_icon glyphicon glyphicon-send" style="color:#B2EBF4"></span></a>-->
+	<a id="help_me" href="{{url_for('schedule')}}"><span class="menu_icon glyphicon glyphicon-calendar" style="color:#B2EBF4"></span></a>
 	<a id="favorite_menu" href="{{url_for('favorite_list')}}"><span class="menu_icon glyphicon glyphicon-star" style="color:#FFF200"></span></a>
-		{% for tag in tags %}
-				<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[loop.index0%6]}}" >{{tag.id}}</a>
-		{% endfor %}
+	<br>
+	{% for tag in tags %}
+		<a href="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" class="tagd text-{{textcolor[loop.index0%6]}}" >{{tag.id}}</a>
+	{% endfor %}
 	<br>
 </div>
 

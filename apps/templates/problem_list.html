@@ -57,9 +57,7 @@
 					{% endif %}
 						
 				</div>
-				<a href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-ok-circle"></span></a>&nbsp;&nbsp;
-				<a href="#"><span style="color:#AF4848" class="list_menu glyphicon glyphicon-remove-circle"></span></a>&nbsp;&nbsp;
-				<a id="make_prob" href="#"><span style="color:#541300" class="list_menu glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
+				<a id="make_prob" href="#"><span class="list_menu glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
 			</div>
 			{% for problem in problems %}
 				{% if problem_colors|length != 0%}
@@ -75,11 +73,15 @@
 <script>
 	sol_content = "None"
 	prob_id = ""
+	open = false; //for summernote flag
 
 	$(function(){
 		// sModal_open이 정의되있으면 prob_id도 정의되있음.	
 		{% if sModal_open %}
-			$('#ctModal').modal()
+			$('#ctModal').modal({
+				backdrop: 'static',
+				keyboard: false	
+			})
 			$.ajax({
 				url: '/get_problem/' + {{prob_id}},
 				type: 'GET',
@@ -95,6 +97,8 @@
 					$('#problem_title').html(data.prob_title)
 					$('#solution_content').html(data.sol_content)
 					$('#ctModal').modal()
+					
+					$('#sol_summernote').hide()
 				}
 			})		
 		{% endif %}
@@ -157,11 +161,15 @@
 					success: function(data){
 						sol_content = data.sol_content
 						prob_id = data.prob_id
+						// 여기서 서머노트 디스트로이하고 숨겨야돼
 						$('#sol_form').attr("action", "/problem_list/" + data.tag_id + "/" + data.prob_id)
 						$('#problem_content').html(data.prob_content)
 						$('#problem_title').html(data.prob_title)
 						$('#solution_content').html(data.sol_content)
-						$('#ctModal').modal()
+						$('#ctModal').modal({
+							backdrop: 'static',
+							keyboard: false	
+						})
 					}		
 	
 				})
@@ -198,21 +206,75 @@
    			}
 		});
 
+		// button in the make solution modal		
+		$('#sol_exitbtn').click(function(){
+			$('#sol_summernote').destroy()
+			$('#sol_summernote').hide()
+			open = false // summer note open flag -> init status
+			return true
+		})
 
-	})
+
+
+		function createNote(){
+   			$('#sol_summernote').summernote({
+					height: 150,                 // set editor height
+
+					minHeight: null,             // set minimum height of editor
+					maxHeight: null,             // set maximum height of editor
+
+					focus: true,                 // set focus to editable area after initializing summernote
+					toolbar: [
+					//[groupname, [button list]]
+	         
+					['style', ['bold', 'underline', 'clear', 'color']],
+					['font', ['strikethrough']],
+					['fontsize', ['fontsize']],
+					['para', ['ul', 'ol' ]],
+					['insert', ['picture', 'video', 'link']],
+					['misc', ['codeview']]
+				],
+				codemirror: {
+				theme: 'monokai'
+				}     
+			});
+		}
+
+		// 맨처음엔 숨겨놔야 한다.(누르기전에)
+		$('#sol_summernote').hide()
+
+		$('#sol_submitbtn').click(function(){
+			if (!open){
+				$('#sol_summernote').show()
+				createNote();
+				$('.note-editable').html(sol_content)
+				open = true;
+
+				$('#solution_content').html("")
+
+			return false;
+			} else {
+				//$('#sol_summernote').destroy()
+				//$('#sol_summernote').hide()
+				// open = false;
+				return true;
+			}
+			//return false;
+
+		})	
+  	});
 </script>
-
 
 <!-- Problem list 에문제 클릭하면 나오는 모달창 -->
 <!-- Modal -->
 <div class="modal fade" id="ctModal" tabindex="-1" role="dialog" aria-labelledby="ctModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-success">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="ctModalLabel">
 		<!-- ajax로 problem_title 채워줌-->
-		<span class="menu_icon glyphicon glyphicon-star" style="color:red"></span>{{tag.id}}#<span id="problem_title"></span>
+		<span class="menu_icon glyphicon glyphicon-star" style="color:red"></span>{{tag.id}}&nbsp;<span id="problem_title"></span>
 	</h4>
       </div>
       <div class="modal-body">	
@@ -226,14 +288,22 @@
 		  <div class="panel-body">
 			<p id="solution_content">
 			</p>
-			{% include "make_solution.html" %}
+			<!--플래시 메시지 띄워주기 여기 에-->
+			<form id="sol_form" action="#"  method="POST"  role="form">
+				{{ solForm.hidden_tag() }}
+				{{ solForm.content(id="sol_summernote")}}
+				<br>
+      				<button id="sol_submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">해결책 쓰기/수정</button>
+         			<br>
+			</form>
+			
  		 </div>
 		</div>
       </div>
       <div class="modal-footer  bg-success">
         <button type="button" id="prob_del_btn" class="btn btn-danger" >문제 삭제</button>
         <button type="button" class="btn btn-warning" >문제 수정</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">나가기</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="sol_exitbtn">나가기</button>
       </div>
     </div>
   </div>
@@ -246,10 +316,20 @@
 <script>
 $(function(){
 	{% if mpmodal_open %}
-		$('#mpModal').modal()
+		$('#mpModal').modal({
+			backdrop: 'static',
+			keyboard: false	
+		})
 	{% endif %}
 	$('#make_prob').click(function(){
-		$('#mpModal').modal()
+		$('#mpModal').modal({
+			backdrop: 'static',
+			keyboard: false	
+		})
+	})
+	$('#mp_exitbtn').click(function(){
+		$('#prob_summernote').destroy()
+		$('#prob_summernote').hide()
 	})
 })
 
@@ -266,7 +346,7 @@ $(function(){
       <div class="modal-body">
 	{% for message in get_flashed_messages() %}
 		<div class="col-md-12  alert alert-info">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<button  type="button"  class="close" data-dismiss="alert">&times;</button>
 		{{message}}
 		</div>
 	{% endfor %}

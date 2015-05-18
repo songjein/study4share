@@ -11,7 +11,8 @@
 	 {{ form.hidden_tag() }}
 	  <div class="form-group">
 	    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{form.title.label}}</label>
-	     	{{form.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="문제가 뭐요?")}}
+	    <span style="color:gray">제목 맨앞에 #더블해시태그# 를 입력해 정렬이 가능합니다(옵션)</span>
+	     	{{form.title(style="border-color:skyblue;", class="form-control", id='quest', placeholder="#태그# 제목을 입력해주세요")}}
 	  </div>
 	  {{form.content(id="summernote")}}
 
@@ -47,11 +48,23 @@
 	  </div>
 <script>
 	$(function(){
+		// submit button을 누를때 체크해서 만약 #newtag input태그에 값을 채워서 길이가 0 이상이라면 tag값을 체인지
 		$('.tagc').click(function(){
+			$('#newtag').val("");
 			$('#tag').val($(this).text())
 			$('.tagc').css('background','none');
 			$(this).css('background','#FFF612');
 			return false
+		})
+
+		$( "#newtag" ).change(function() {
+			$('.tagc').css('background','none');
+		});
+
+		$("#submitbtn").click(function(){
+			if ($('#newtag').val().length > 0)
+				$('#tag').val($('#newtag').val())
+			return true
 		})
 	})
 </script>
@@ -70,14 +83,10 @@
 	</form>
  	<br>
         <button data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12">안써! -_=</button>
+	<br>
 
 <script>
   $(document).ready(function() {
-	$("#submitbtn").click(function(){
-		if ($('#newtag').val().length > 0)
-			$('#tag').val($('#newtag').val())
-		return true
-	})
     $('#summernote').summernote({
      height: 150,                 // set editor height
 
