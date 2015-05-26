@@ -31,3 +31,316 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/dist-packages/markupsafe/_native.py", line 22, in escape
     return Markup(text_type(s)
 UnicodeDecodeError: 'ascii' codec can't decode byte 0xeb in position 1: ordinal not in range(128)
+Exception on /update_problem/103 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 341, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/225 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 341, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/103 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 341, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /update_problem/233 [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 342, in update_problem
+    probForm.populate_obj(problem)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/form.py", line 96, in populate_obj
+    field.populate_obj(obj, name)
+  File "/usr/local/lib/python2.7/dist-packages/wtforms/fields/core.py", line 323, in populate_obj
+    setattr(obj, name, self.data)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 226, in __set__
+    instance_dict(instance), value, None)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 812, in set
+    value = self.fire_replace_event(state, dict_, value, old, initiator)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/attributes.py", line 832, in fire_replace_event
+    state, value, previous, initiator or self._replace_token)
+  File "/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py", line 84, in set_
+    newvalue_state = attributes.instance_state(newvalue)
+AttributeError: 'unicode' object has no attribute '_sa_instance_state'
+Exception on /main [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 166, in main
+    return render_template('main.html', form=form, tags=tags, mpmodal_open=False, textcolor=textcolor)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/var/www/html/study4share/apps/templates/main.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/study4share/apps/templates/base.html", line 66, in top-level template code
+    {% block content %}{% endblock %}
+  File "/var/www/html/study4share/apps/templates/main.html", line 65, in block "content"
+    {% include "make_problem.html" %}
+  File "/var/www/html/study4share/apps/templates/make_problem.html", line 20, in top-level template code
+    <span style="color:skyblue; font-weight:bold; font-size:3em;">{{form.tag.label}}</span>
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 397, in getattr
+    return getattr(obj, attribute)
+UndefinedError: 'apps.forms.ProblemForm object' has no attribute 'tag'
+Exception on /problem_list/study4share/  [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login.py", line 758, in decorated_view
+    return func(*args, **kwargs)
+  File "/var/www/html/study4share/apps/controllers.py", line 227, in problem_list
+    dict_for_flist[key].append(prob)
+KeyError: u'\ud574\uacb0'

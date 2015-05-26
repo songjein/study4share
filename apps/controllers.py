@@ -110,10 +110,10 @@ def main():
 	form = ProblemForm()
 
 	if form.validate_on_submit():
-		tag =  Tag.query.get(form.tag.data)
+		tag =  Tag.query.get(form.tag_id.data)
 		# 새로운 태그라면?
 		if tag is None:
-			tag = Tag(id=form.tag.data.strip())
+			tag = Tag(id=form.tag_id.data.strip())
 			# regexp에 관해서 validator가 잘 안되서 이런식으로 에러처리를 했다.
 			if u"?" in tag.id or u"&" in tag.id:
 				flash(u"?또는&를 태그에 포함할 수 없습니다!")
@@ -158,7 +158,7 @@ def main():
 		if form.content.data == "<p><br></p>":
 			form.content.errors.append(u"내용을 입력해주세요~")	
 		errors = []
-		errors += form.title.errors +  form.content.errors + form.tag.errors + form.newtag.errors
+		errors += form.title.errors +  form.content.errors + form.tag_id.errors + form.newtag.errors
 		for e in errors:
 			flash(e)
 		return render_template('main.html', form=form, tags=tags, mpmodal_open=True, textcolor=textcolor)
@@ -208,6 +208,9 @@ def problem_list(tag_id, prob_id):
 		tag.sort = s
 		db.session.commit()
 
+	#################################################
+	# tag.sort가 이미 있는 경우
+	################################################
 	problem_colors = []	
 	none_htag_list = [] # hash tag가 없는 문제를 담는다
 	dict_for_flist = {} # hash tag가 있는 문제를 담는다
@@ -252,25 +255,16 @@ def problem_list(tag_id, prob_id):
 	tags = tag.sort.split(',')
 	if tags[0] == "":
 		tags = []	
-	
+
+
 	#################################################################
-
-	# prob_id 에 먼가 담겨있으면 그건 solution 업데이트 할때임!~!	
-	if Problem.query.get(prob_id):
-		solution = Problem.query.get(prob_id).solution[0]
-		solForm = SolutionForm(request.form, solution);
-
-		if solForm.validate_on_submit():
-			solForm.populate_obj(solution)
-			db.session.commit()
-		# 예외로 prob_id 전달하기
-		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, sModal_open=True, prob_id=prob_id, problem_colors=problem_colors)   
-
+	# make problem 
+	#################################################################
 	# prob_id가 " "이면 이건 make_problem
 	if probForm.validate_on_submit():
-		tag =  Tag.query.get(probForm.tag.data)
+		tag =  Tag.query.get(probForm.tag_id.data)
 		if tag is None:
-			tag = Tag(id=probForm.tag.data.strip())
+			tag = Tag(id=probForm.tag_id.data.strip())
 			db.session.add(tag)
 			db.session.commit()
 		
@@ -305,21 +299,59 @@ def problem_list(tag_id, prob_id):
 		db.session.add(solution)
 		db.session.commit()	
 		return redirect(url_for('problem_list', tag_id=tag_id, prob_id=" "))
+
 	# form error일 경우
 	elif request.method == "POST" :	
 		# form에 설정했던게 안먹혀서 예외처리함
 		if probForm.content.data == "<p><br></p>":
 			probForm.content.errors.append(u"내용을 입력해주세요~")	
 		errors = []
-		errors += probForm.title.errors +  probForm.content.errors + probForm.tag.errors + probForm.newtag.errors
+		errors += probForm.title.errors +  probForm.content.errors + probForm.tag_id.errors + probForm.newtag.errors
 		for e in errors:
 			flash(e)
-		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, mpmodal_open=True, problem_colors=problem_colors)   
+		return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, \
+							 mpmodal_open=True, problem_colors=problem_colors)   
 	
 	return render_template('problem_list.html', tag=tag, tags=tags, problems=problems, solForm=solForm, probForm=probForm, problem_colors=problem_colors)   
    
 
+# 나눠야 겠다.
+# 다 합쳐놓으니까 진짜 불편하다.
+# 이전엔 그게 좋은 건줄 알았는데
 # for ajax
+@app.route('/update_solution/<prob_id>', methods=['POST'])
+@login_required
+def update_solution(prob_id):
+	solution = Problem.query.get(prob_id).solution[0]
+	solForm = SolutionForm(request.form, solution);
+
+	if solForm.validate_on_submit():
+		solForm.populate_obj(solution)
+		db.session.commit()
+	return "update_success"
+	
+# for ajax
+@app.route('/update_problem/<prob_id>', methods=['POST'])
+@login_required
+def update_problem(prob_id):
+	problem = Problem.query.get(prob_id)
+	probForm = ProblemForm(request.form, problem);
+	# 이게 안됐었는데 이유가 일단 tag를 안보냈고,
+	# 보냈떠라도 model 테이블엔 tag_id로 되어있었는데
+	# form엔 tag로 되어있어서 불일치로 populate이안된거
+	if probForm.validate_on_submit():
+		probForm.populate_obj(problem)
+		# 여기서 태그리스트에 변경을 해줘야한다.
+		# 이 문제의 현재 h tag를 얻어놓고
+		# 혹시 이 문제의 h tag가 바뀌거나 없어진다면
+		# tag 의 sort를 바꾸어 주어야 한다. 
+		db.session.commit()
+
+	return "update_success"
+
+
+# for ajax
+# problems of particular hash tag
 @app.route('/problems_of', methods=['POST'])
 @login_required
 def problems_of():
@@ -338,6 +370,7 @@ def problems_of():
 	
 	return json.dumps(result) 
 
+
 # for ajax
 @app.route("/get_problem/<prob_id>")
 @login_required
@@ -352,10 +385,13 @@ def get_problem(prob_id):
 # for ajax
 @app.route("/delete_problem/<prob_id>")
 @login_required
-def delete_problem(prob_id):
+def delete_problem(prob_id):	
 	problem = Problem.query.get(prob_id)
 	tag = problem.tag
 	
+	if problem.user_id != g.user.id:
+		return "false_user"
+
 	htag = None	
 	if "#" in problem.title and problem.title.count('#') >= 2:
 		htag = problem.title.split('#')[1] 
@@ -631,3 +667,7 @@ def show_rank():
 
 	return json.dumps(tmp)
 ##############################################################################################################
+
+@app.route('/map')
+def map():
+	return render_template('map.html')

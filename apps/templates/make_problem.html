@@ -17,9 +17,9 @@
 	  {{form.content(id="summernote")}}
 
 	  <br>
-	  <span style="color:skyblue; font-weight:bold; font-size:3em;">{{form.tag.label}}</span>
+	  <span style="color:skyblue; font-weight:bold; font-size:3em;">{{form.tag_id.label}}</span>
 	  <span style="color:gray">질문을 위한 태그를 선택해 주세요</span>
-	  {{form.tag()}}
+	  {{form.tag_id()}}
 	  <div style="background-color:#EAEAEA">
 		{% for tag in tags %}
 			{% if loop.index0%7 == 0 %}
@@ -72,11 +72,12 @@
 	  <span style="color:#9FC93C; font-weight:bold; font-size:3em;">{{form.newtag.label}}</span>
 	  <span style="color:gray">마음에 드는 태그가 없다면 새로 만들어 주세요</span>
 	  {{form.newtag(style='border-color:#9FC93C;', class="form-control",   placeholder="새로운 태그명")}}
-
+<!--
 	  <br>
 	  <span style="color:#FFB2F5; font-weight:bold; font-size:3em;"> {{form.file.label}}</span>
 	  <span style="color:gray">업로드 취소 방법은; 파일 선택 클릭후 취소 클릭!</span>
   	  {{form.file()}}
+-->
 	  <br>
           <button id="submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">등록! =_-</button>
           <br>

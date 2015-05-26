@@ -77,36 +77,25 @@
 	prob_id = ""
 	open = false; //for summernote flag
 	del_flag = false;
-	modify_flag = false;  // 문제 수정 버튼을 누르면 true로
-
-	function createNote(s){
-   		$(s).summernote({
-			height: 150,                 // set editor height
-
-			minHeight: null,             // set minimum height of editor
-			maxHeight: null,             // set maximum height of editor
-
-			focus: true,                 // set focus to editable area after initializing summernote
-			toolbar: [
-			//[groupname, [button list]]
-        
-			['style', ['bold', 'underline', 'clear', 'color']],
-			['font', ['strikethrough']],
-			['fontsize', ['fontsize']],
-			['para', ['ul', 'ol' ]],
-			['insert', ['picture', 'video', 'link']],
-			['misc', ['codeview']]
-		],
-			codemirror: {
-			theme: 'monokai'
-			}     
-		});
-	}
 
 	$(function(){
+		// sModal_open이 정의되있으면 prob_id도 정의되있음.	
+		{% if sModal_open %}
+			$.ajax({
+				url: '/get_problem/' + {{prob_id}},
+				type: 'GET',
+				//data: {
+				//name: 'test',
+				//region: 'test'
+				//},
+				dataType: "JSON",
+				success: function(data){
+					setModalContent(data)	
+					//$('#sol_summernote').hide()
+				}
+			})		
+		{% endif %}
 		
-		// solution 수정할 때도 호출하는데, 
-		// 그때느 이미 modal 열려잇는데도, modal()에서 에러는 안나네		
 		function setModalContent(data){
 			prob_id = data.prob_id
 
@@ -198,13 +187,11 @@
 		makeClickable()
 		/////////////////////////////////////////////////////////////////////////////////	
 		
-
 		// 한번 누르면 일단 텍스트를 바꿔줄꺼임
 		// solution이 딸린 problem지울 때
 		$('#prob_del_btn').click(function(){
 			if (!del_flag){
 				$(this).text('진짜 삭제?')
-				// 이 del_flag는 sol_exitbtn을 클릭하면 false로 초기화
 				del_flag = true;
 			}
 			else {
@@ -226,6 +213,18 @@
 
 
 
+		//$(window).scroll(function() {
+ 		//	if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+       		//		alert("near bottom!");
+  		//	}
+		//});
+
+		$(window).scroll(function() {
+   			if($(window).scrollTop() + $(window).height() == $(document).height()) {
+				$('#list_content').append()
+   			}
+		});
+
 		// button in the make solution modal		
 		$('#sol_exitbtn').click(function(){
 			$('#sol_summernote').destroy()
@@ -238,9 +237,33 @@
 
 
 
+		function createNote(s){
+   			$(s).summernote({
+				height: 150,                 // set editor height
+
+				minHeight: null,             // set minimum height of editor
+				maxHeight: null,             // set maximum height of editor
+
+				focus: true,                 // set focus to editable area after initializing summernote
+				toolbar: [
+				//[groupname, [button list]]
+	        
+				['style', ['bold', 'underline', 'clear', 'color']],
+				['font', ['strikethrough']],
+				['fontsize', ['fontsize']],
+				['para', ['ul', 'ol' ]],
+				['insert', ['picture', 'video', 'link']],
+				['misc', ['codeview']]
+			],
+				codemirror: {
+				theme: 'monokai'
+				}     
+			});
+		}
 
 		// 맨처음엔 숨겨놔야 한다.(누르기전에)
 		$('#sol_summernote').hide()
+
 		$('#sol_submitbtn').click(function(){
 			if (!open){
 				$('#sol_summernote').show()
@@ -252,57 +275,14 @@
 
 				return false;
 			} else {
-				// solution을 업데이트 하는 부분이다.
-				$.ajax({
-					url: '/update_solution/' + prob_id,
-					type: 'POST',
-					data: {
-						csrf_token : $('#sol_form #csrf_token').val(),
-						content: $('#sol_form .note-editable').html(),
-					},
-					success: function(data){
-						if (data == "update_success"){
-							// get problem해서 content 채우기 
-							$.ajax({
-								url: '/get_problem/' + prob_id,
-								type: 'GET',
-								//data: {
-								//name: 'test',
-								//region: 'test'
-								//},
-								dataType: "JSON",
-								success: function(data){
-									setModalContent(data)					
-								}		
-	
-							})
-						}	
-					}		
-	
-				})
-				$('#sol_summernote').destroy()
-				$('#sol_summernote').hide()
-				open = false;
-				return false;
+				//$('#sol_summernote').destroy()
+				//$('#sol_summernote').hide()
+				// open = false;
+				return true;
 			}
 			//return false;
 
 		})	
-		
-		
-		// 맨 밑에 스크롤 도달시 이벤트`
-
-		//$(window).scroll(function() {
- 		//	if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-       		//		alert("near bottom!");
-  		//	}
-		//});
-
-		$(window).scroll(function() {
-   			if($(window).scrollTop() + $(window).height() == $(document).height()) {
-				$('#list_content').append()
-   			}
-		});
   	});
 </script>
 
@@ -343,7 +323,7 @@
       </div>
       <div class="modal-footer  bg-success">
         <button type="button" id="prob_del_btn" class="btn btn-danger" >문제 삭제</button>
-        <button type="button" class="btn btn-warning" id="prob_modify">문제 수정</button>
+        <button type="button" class="btn btn-warning" id="sol_modify">문제 수정</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="sol_exitbtn">나가기</button>
       </div>
     </div>
@@ -356,78 +336,24 @@
 
 <script>
 $(function(){
-	createNote('#prob_summernote')
-	// 서버에서 무슨 태그 클릭햇는지를 hidden tag인 id ="tag"의 val로 판단
-	// 이거 빼면 태그없다고 나와.
-	$('#tag_id').val("{{tag.id}}")
-
 	{% if mpmodal_open %}
 		$('#mpModal').modal({
 			backdrop: 'static',
 		})
 	{% endif %}
-
 	$('#make_prob').click(function(){
 		$('#mpModal').modal({
 			backdrop: 'static',
 		})
 	})
-
-
-	$('#prob_modify').click(function(){
-		// make problem 창은 띄워주고
+	$('#sol_modify').click(function(){
 		$('#mpModal').modal({
 			backdrop: 'static',
 		})
-		// solution창은 닫아준다.
-		$('#solModal').modal('hide')
-
-		/*
-		약간 트릭을 써야 할거 같아.
-		modal 을 클릭하는 순간. 무조건 페이지 리로드 시키자.
-		왜냐하면 값들을 초기화 시키기 위해서-> jquery로 원상복구 시키기는 귀찮다.
-		내가 form 의 action을 임의로 #으로 바꿀것이기 때문이다.
-		수정시 ajax 호출로서 데이터를 수정할 것이다.	
-		*/
-		//$('#prob_form').attr('action', '#'); // 이건 안해도되는게 그냥 false하면됨.
-		$('#prob_form .note-editable').html(prob_content)
-		$('#quest').val(prob_title)
-		modify_flag = true
 	})
-
-
 	$('#mp_exitbtn').click(function(){
-		// 만약 문제 수정 모드라면
-		if (modify_flag){
-			// 페이지 다시 로드
-			window.location.reload()
-		}
 		$('#prob_summernote').destroy()
 		$('#prob_summernote').hide()
-	})
-
-
-	$('#mp_submitbtn').click(function(){
-		if (modify_flag){
-			$.ajax({
-				url: '/update_problem/' + prob_id,
-				type: 'POST',
-				data: {
-					csrf_token : $('#prob_form #csrf_token').val(),
-					title : $('#prob_form #quest').val(),
-					content: $('#prob_form .note-editable').html(),
-					tag_id: $('#prob_form #tag_id').val() // 어차피 이건 수정될일 없으니까. 
-				},
-				success: function(data){
-					if (data == "update_success"){
-						// 페이지 다시 로드
-						window.location.reload()
-					}	
-				}		
-			})
-			return false;	
-		}			
-		return true;	
 	})
 })
 
@@ -451,7 +377,7 @@ $(function(){
 <!---------------------------------------------------------------------------------------------------------------------------------------->        
 
 	<!--플래시 메시지 띄워주기 여기 에-->
-	<form id='prob_form' action="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" method="POST"  role="form">
+	<form action="{{url_for('problem_list', tag_id=tag.id, prob_id=" ")}}" method="POST"  role="form">
 	 {{ probForm.hidden_tag() }}
 	  <div class="form-group">
 	    <label for="quest"  style="color:#FFC708; font-weight:bold; font-size:3em;">{{probForm.title.label}}</label>
@@ -461,13 +387,53 @@ $(function(){
 	  {{probForm.content(id="prob_summernote")}}
 
 	  <br>
-	  {{probForm.tag_id()}}
-          <button id="mp_submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">등록! =_-</button>
+	  {{probForm.tag()}}
+<script>
+	$(function(){
+		// 서버에서 무슨 태그 클릭햇는지를 hidden tag인 id ="tag"의 val로 판단
+		$('#tag').val("{{tag.id}}")
+	})
+</script>
+	<!--
+	  <span style="color:#FFB2F5; font-weight:bold; font-size:3em;"> {{probForm.file.label}}</span>
+	  <span style="color:gray">업로드 취소 방법은; 파일 선택 클릭후 취소 클릭!</span>
+  	  {{probForm.file()}}
+	  <br>
+	-->
+          <button id="prob_submitbtn"  type="submit" class="btn btn-info col-lg-12 col-xs-12">등록! =_-</button>
           <br>
 	</form>
  	<br>
-        <button id='mp_exitbtn' data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12">안써! -_=</button>
+        <button data-dismiss="modal" type="button" class="btn btn-warning col:-lg-12 col-xs-12">안써! -_=</button>
 	<br>
+
+<script>
+
+  $(document).ready(function() {
+    $('#prob_summernote').summernote({
+     height: 150,                 // set editor height
+
+     minHeight: null,             // set minimum height of editor
+     maxHeight: null,             // set maximum height of editor
+
+     focus: true,                 // set focus to editable area after initializing summernote
+     toolbar: [
+       //[groupname, [button list]]
+	         
+       ['style', ['bold', 'underline', 'clear', 'color']],
+       ['font', ['strikethrough']],
+       ['fontsize', ['fontsize']],
+       ['para', ['ul', 'ol' ]],
+       ['insert', ['picture', 'video', 'link']],
+	['misc', ['codeview']]
+     ],
+     codemirror: {
+	theme: 'monokai'
+     }     
+   });
+  });
+</script>
+
 <!---------------------------------------------------------------------------------------------------------------------------------------->        
       <br> 
       </div>
