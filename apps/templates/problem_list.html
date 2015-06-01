@@ -81,7 +81,7 @@
 
 	function createNote(s){
    		$(s).summernote({
-			height: 150,                 // set editor height
+			height: 250,                 // set editor height
 
 			minHeight: null,             // set minimum height of editor
 			maxHeight: null,             // set maximum height of editor
@@ -423,6 +423,10 @@ $(function(){
 						// 페이지 다시 로드
 						window.location.reload()
 					}	
+					else if (data=="false_user"){
+						alert('문제를 생성한 사람만 수정할 수 있습니다^^')
+					}
+					else alert(data)
 				}		
 			})
 			return false;	

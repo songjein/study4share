@@ -37,10 +37,10 @@
 
 $(function(){
 	{% if mpmodal_open %}
-		$('#mpModal').modal()
+		$('#mpModal').modal({backdrop:'static'})
 	{% endif %}
 	$('#make_prob').click(function(){
-		$('#mpModal').modal()
+		$('#mpModal').modal({backdrop:'static'})
 	})
 })
 

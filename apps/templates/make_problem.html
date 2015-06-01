@@ -51,7 +51,7 @@
 		// submit button을 누를때 체크해서 만약 #newtag input태그에 값을 채워서 길이가 0 이상이라면 tag값을 체인지
 		$('.tagc').click(function(){
 			$('#newtag').val("");
-			$('#tag').val($(this).text())
+			$('#tag_id').val($(this).text())
 			$('.tagc').css('background','none');
 			$(this).css('background','#FFF612');
 			return false
@@ -63,7 +63,7 @@
 
 		$("#submitbtn").click(function(){
 			if ($('#newtag').val().length > 0)
-				$('#tag').val($('#newtag').val())
+				$('#tag_id').val($('#newtag').val())
 			return true
 		})
 	})

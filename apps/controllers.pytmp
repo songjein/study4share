@@ -727,39 +727,39 @@ def show_rank():
 def map():
 	return render_template('map.html')
 
-@app.route('/meeting/<tag_id>', methods=['GET'])
-def meeting(tag_id):
+"""
+@app.route('/meeting/<proj_id>', methods=['GET'])
+def meeting(proj_id):
 
-    tag = Tag.query.get(tag_id)
+    project = Project.query.get(proj_id)
 
-    return render_template('meeting/meeting.html', tag=tag)
+    return render_template('meeting/meeting.html', project=project)
 
+@app.route('/init_list/<proj_id>', methods=['GET'])
+def init_list(proj_id):
 
-@app.route('/init_list/<tag_id>', methods=['GET'])
-def init_list(tag_id):
-
-    tag = Tag.query.get(tag_id)
+    project = Project.query.get(proj_id)
 
     list_string = ""
-    if tag.schedule:  
-        list_string = tag.schedule
+    if project.schedule:  
+        list_string = project.schedule
 
     return list_string
 
 
-@app.route('/save_list/<tag_id>')
-def save_list(tag_id):
+@app.route('/save_list/<proj_id>')
+def save_list(proj_id):
     list_str = request.args['list_string']
 
     # 해당 프로젝트의 해달 컬럼에 저장
-    tag = Tag.query.get(tag_id)
-    tag.schedule = list_str
+    proj = Project.query.get(proj_id)
+    proj.schedule = list_str
     db.session.commit()
 
     return "success"
 
-@app.route('/send/<tag_id>', methods=['GET'])
-def sendmsg(tag_id):
+@app.route('/send/<proj_id>', methods=['GET'])
+def sendmsg(proj_id):
 
     p = pusher.Pusher(
       app_id='85292',
@@ -772,12 +772,12 @@ def sendmsg(tag_id):
 
 
     # 이 채널을 유동적으로.
-    p[tag_id].trigger('chat_msg', {'name': chat_name, 'msg': chat_msg})
+    p[proj_id].trigger('chat_msg', {'name': chat_name, 'msg': chat_msg})
 
     return ""
 
-@app.route('/add_list/<tag_id>', methods=['GET'])
-def add_list(tag_id):
+@app.route('/add_list/<proj_id>', methods=['GET'])
+def add_list(proj_id):
 
     p = pusher.Pusher(
       app_id='85292',
@@ -788,12 +788,12 @@ def add_list(tag_id):
     list_item = request.args.get('list_item')
 
     # 이 채널을 유동적으로.
-    p[tag_id].trigger('add_list', {'list_item': list_item})
+    p[proj_id].trigger('add_list', {'list_item': list_item})
 
     return ""
 
-@app.route('/update_list/<tag_id>', methods=['GET'])
-def update_list(tag_id):
+@app.route('/update_list/<proj_id>', methods=['GET'])
+def update_list(proj_id):
 
     p = pusher.Pusher(
       app_id='85292',
@@ -805,7 +805,7 @@ def update_list(tag_id):
 
 
     # 이 채널을 유동적으로.
-    p[tag_id].trigger('update_list', {'list_string': list_string})
+    p[proj_id].trigger('update_list', {'list_string': list_string})
 
     return ""    
 """
