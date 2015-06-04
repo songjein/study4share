@@ -9,7 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 from flask.ext.login import LoginManager
-from flask.ext.socketio import SocketIO, emit 
+from flask.ext.socketio import SocketIO 
 
 app = Flask(__name__)
 app.config.from_object('apps.settings.Production')
@@ -53,5 +53,4 @@ manager.add_command('db', MigrateCommand)
 ##############################################################################################################
 
 import controllers, models
-
 

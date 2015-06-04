@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+	<meta charset="UTF-8">
+	<title>socket example</title>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://js.pusher.com/2.2/pusher.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var pusher = new Pusher('f5de4df8149893d4edbe') // pusher key
+		var channel = pusher.subscribe('my_channel') // channel name
+
+		// 서버로 부터 날라오는 메시지와 bind시키기
+		channel.bind('event_msg', function(data){
+			$('#msg_panel').prepend("<center><h4>" +  data.typed_text + "</h4></center>");
+		});
+
+		$("#typed_text").keydown(function (key) {
+                	if (key.keyCode == 13) {
+				var typed_text = $('#typed_text').val();
+
+				$.get('/send', {
+					data : typed_text,
+				}, function(data){});
+                    		$("#typed_text").val("");
+
+               		 }
+            	});
+	});
+
+	</script>
+</head>
+<body>
+	<div class="container">
+		<center> <h1> 헿핳하하하 </h1></center>
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<input type="text" id="typed_text" class="form-control"  placeholder="하고 싶은 말을 쳐보셈">
+				</div>
+				<div class="panel-body" id="msg_panel">
+					<!--서버로 부터 날라오는 메시지를 여기에 찍어줄 것이다.-->
+				</div>
+			</div>
+		</div>
+	</div>	
+</body>
+</html>

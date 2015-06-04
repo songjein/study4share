@@ -20,7 +20,7 @@ from apps.forms import (JoinForm, LoginForm, ProblemForm, SolutionForm)
 
 from flask.ext.login import login_required, login_user, logout_user, current_user
 
-
+from pusher import Pusher
 
 #UPLOAD_FOLDER = './uploads/'
 #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -568,23 +568,6 @@ def test():
 	return "ok"
 
 
-##############################################################################################################
-# socket io 
-##############################################################################################################
-@socketio.on('my event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']})
-
-@socketio.on('my broadcast event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']}, broadcast=True)
-
-@socketio.on('connect', namespace='/test')
-def test_connect():
-    emit('my response', {'data': 'Connected'})
-
-
-##############################################################################################################
 # file upload and download module
 ##############################################################################################################
 def allowed_file(filename):
@@ -722,14 +705,31 @@ def show_rank():
 
 	return json.dumps(tmp)
 ##############################################################################################################
+##############################################################################################################
+##############################################################################################################
+@app.route('/socket', methods=['GET'])
+def socket():
+    return render_template('socket.html')
 
-@app.route('/map')
-def map():
-	return render_template('map.html')
+@app.route('/send', methods=['GET'])
+def add_list():
 
+    pusher = Pusher(
+      app_id='123080',
+      key='f5de4df8149893d4edbe',
+      secret='915f64933b208287d90b'
+    )
+	
+    typed_text = request.args['data']
+
+    # 이 채널을 유동적으로.
+    pusher.trigger('my_channel', 'event_msg', {'typed_text': typed_text})
+
+    return ""
+
+'''
 @app.route('/meeting/<tag_id>', methods=['GET'])
 def meeting(tag_id):
-
     tag = Tag.query.get(tag_id)
 
     return render_template('meeting/meeting.html', tag=tag)
@@ -808,4 +808,5 @@ def update_list(tag_id):
     p[tag_id].trigger('update_list', {'list_string': list_string})
 
     return ""    
-"""
+'''
+
